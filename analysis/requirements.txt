@@ -1,0 +1,5 @@
+# Dependencias do roteiro de analise. Congele as versoes usadas antes da campanha.
+numpy
+pandas
+scipy
+matplotlib

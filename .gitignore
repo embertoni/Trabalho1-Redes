@@ -1,0 +1,37 @@
+# Compilação e ambientes locais
+/build/
+/.venv/
+/.venv-*/
+/venv/
+__pycache__/
+*.py[cod]
+*.o
+*.a
+*.so
+*.dll
+*.exe
+
+# Arquivos de trabalho e artefatos regeneráveis
+/tmp/
+/output/
+/server-data/
+/client-data/
+/client-output/
+*.bin
+*.core
+
+# Configurações privadas
+.env
+.env.*
+!.env.example
+
+# Editor e sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# CSVs, JSONs e logs experimentais não são ignorados:
+# são evidências e devem ser selecionados conscientemente para versionamento.
