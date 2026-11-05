@@ -1,0 +1,9 @@
+profile,evidence,exists,nonempty
+A,ping.txt,False,False
+A,traceroute.txt,False,False
+A,iperf-get.json,False,False
+A,iperf-put.json,False,False
+B,ping.txt,False,False
+B,traceroute.txt,False,False
+B,iperf-get.json,False,False
+B,iperf-put.json,False,False

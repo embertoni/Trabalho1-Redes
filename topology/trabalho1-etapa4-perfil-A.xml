@@ -3,51 +3,51 @@
   <networks/>
   <devices>
     <device id="1" name="Cliente" icon="" canvas="1" type="PC" class="" image="" compose="" compose_name="">
-      <position x="697.8759765625" y="89.41285705566406" lat="47.578353673606" lon="-122.1229205289075" alt="2.0"/>
+      <position x="643.0062866210938" y="186.38528442382812" lat="47.57747220614269" lon="-122.12365988312413" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
       </services>
     </device>
     <device id="2" name="Servidor" icon="" canvas="1" type="PC" class="" image="" compose="" compose_name="">
-      <position x="1081.24951171875" y="106.0577163696289" lat="47.578202374932644" lon="-122.11775467431514" alt="2.0"/>
+      <position x="1199.2193603515625" y="186.99049377441406" lat="47.57746670481737" lon="-122.11616506254374" alt="2.0"/>
       <services>
         <service name="DefaultRoute"/>
       </services>
     </device>
     <device id="3" name="R-Acesso-Cliente" icon="" canvas="1" type="router" class="" image="" compose="" compose_name="">
-      <position x="332.8598327636719" y="331.32965087890625" lat="47.5761546519735" lon="-122.12783902262137" alt="2.0"/>
+      <position x="642.87353515625" y="410.89068603515625" lat="47.57543142264803" lon="-122.12366167191416" alt="2.0"/>
       <services>
-        <service name="OSPFv2"/>
         <service name="zebra"/>
         <service name="OSPFv3"/>
         <service name="IPForward"/>
+        <service name="OSPFv2"/>
       </services>
     </device>
     <device id="4" name="R-Nucleo-1" icon="" canvas="1" type="router" class="" image="" compose="" compose_name="">
-      <position x="717.527587890625" y="643.2437744140625" lat="47.573319218894405" lon="-122.12265572876528" alt="2.0"/>
+      <position x="821.7799682617188" y="411.41937255859375" lat="47.57542661672445" lon="-122.12125095616489" alt="2.0"/>
       <services>
-        <service name="OSPFv2"/>
         <service name="zebra"/>
         <service name="OSPFv3"/>
         <service name="IPForward"/>
+        <service name="OSPFv2"/>
       </services>
     </device>
     <device id="5" name="R-Nucleo-2" icon="" canvas="1" type="router" class="" image="" compose="" compose_name="">
-      <position x="1119.245849609375" y="641.8037109375" lat="47.57333231004145" lon="-122.11724268394912" alt="2.0"/>
+      <position x="1017.7369384765625" y="412.2027893066406" lat="47.57541949522371" lon="-122.11861048904429" alt="2.0"/>
       <services>
-        <service name="OSPFv2"/>
         <service name="zebra"/>
         <service name="OSPFv3"/>
         <service name="IPForward"/>
+        <service name="OSPFv2"/>
       </services>
     </device>
     <device id="6" name="R-Acesso-Servidor" icon="" canvas="1" type="router" class="" image="" compose="" compose_name="">
-      <position x="1390.5570068359375" y="352.2491149902344" lat="47.57596448988125" lon="-122.11358683955977" alt="2.0"/>
+      <position x="1199.0330810546875" y="412.0857849121094" lat="47.57542055882994" lon="-122.11616757260683" alt="2.0"/>
       <services>
-        <service name="OSPFv2"/>
         <service name="zebra"/>
         <service name="OSPFv3"/>
         <service name="IPForward"/>
+        <service name="OSPFv2"/>
       </services>
     </device>
   </devices>

@@ -1,0 +1,7 @@
+flowchart LR
+    C[Cliente C] <-->|TCP / subconjunto HTTP| S[Servidor C]
+    S --> T[Thread por conexão]
+    T --> U[Temporário exclusivo]
+    U --> F[fsync]
+    F --> R[rename]
+    R --> A[Confirmação PUT]

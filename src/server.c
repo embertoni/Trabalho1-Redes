@@ -1,7 +1,24 @@
+/*
+ * Servidor de arquivos TCP: uma requisicao por conexao, atendida em uma thread.
+ * Podem ser alterados comentarios, espacos e indentacao sem mudar a logica.
+ * Variaveis, parametros, campos, tipos e funcoes static podem ser renomeados,
+ * desde que todas as referencias sejam atualizadas e nao haja colisao de nomes.
+ * Macros locais tambem podem mudar de nome, preservando seus valores e usos.
+ * Preserve nomes da API de protocol.h, opcoes da CLI, mensagens e formato HTTP:
+ * eles fazem parte das interfaces, e nao sao simples nomes internos.
+ * Para manter o comportamento experimental, preserve buffers, limites, flags,
+ * chamadas de I/O, fsync, ordem das operacoes e modelo de concorrencia.
+ * Renomeacoes internas preservam a logica e a saida, mas nao garantem tempos
+ * identicos em novas medicoes: o ambiente e o escalonamento variam.
+ */
+
+/* Habilita as declaracoes POSIX usadas por sockets, arquivos e threads. */
 #define _POSIX_C_SOURCE 200809L
 
+/* Contrato compartilhado: parser, respostas, limites e envio completo. */
 #include "protocol.h"
 
+/* APIs do sistema e da biblioteca C para rede, disco e tratamento de erros. */
 #include <errno.h>
 #include <fcntl.h>
 #include <getopt.h>
@@ -20,30 +37,36 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+/* Fila de conexoes pendentes e capacidades dos buffers locais. */
 #define SERVER_BACKLOG 128
 #define SERVER_RESPONSE_BUFFER 512
 #define SERVER_TRANSFER_BUFFER (64U * 1024U)
 
+/* Impede seguir o link simbolico final no GET/HEAD quando houver suporte. */
 #if defined(O_NOFOLLOW)
 #define SERVER_OPEN_FLAGS O_RDONLY | O_NOFOLLOW
 #else
 #define SERVER_OPEN_FLAGS O_RDONLY
 #endif
 
+/* Estado exclusivo de cada conexao; a thread assume sua liberacao. */
 typedef struct {
     int client_fd;
     char root[PATH_MAX];
     protocol_limits_t limits;
 } client_context_t;
 
+/* Flag acessada pelo handler de sinal e pelo laco de aceitacao. */
 static volatile sig_atomic_t server_running = 1;
 
+/* Sinaliza o pedido de parada sem executar limpeza dentro do handler. */
 static void handle_signal(int signal_number)
 {
     (void)signal_number;
     server_running = 0;
 }
 
+/* Exibe em stderr as opcoes publicas da linha de comando. */
 static void print_usage(const char *program)
 {
     fprintf(
@@ -63,6 +86,7 @@ static void print_usage(const char *program)
     );
 }
 
+/* Converte a porta e verifica conversao completa e faixa de 1 a 65535. */
 static int parse_port(const char *text, uint16_t *port)
 {
     char *end = NULL;
@@ -84,6 +108,7 @@ static int parse_port(const char *text, uint16_t *port)
     return 1;
 }
 
+/* Converte o limite numerico e verifica erros e caracteres restantes. */
 static int parse_u64(const char *text, uint64_t *value)
 {
     char *end = NULL;
@@ -104,6 +129,7 @@ static int parse_u64(const char *text, uint64_t *value)
     return 1;
 }
 
+/* Resolve o endereco, associa um socket TCP e o coloca em escuta. */
 static int create_listener(const char *host, uint16_t port)
 {
     struct addrinfo hints;
@@ -130,6 +156,7 @@ static int create_listener(const char *host, uint16_t port)
         return -1;
     }
 
+    /* Tenta os enderecos resolvidos ate conseguir realizar bind. */
     for (current = results; current != NULL; current = current->ai_next) {
         listener_fd = socket(
             current->ai_family,
@@ -141,6 +168,7 @@ static int create_listener(const char *host, uint16_t port)
             continue;
         }
 
+        /* Permite reutilizar o endereco local ao reiniciar o servidor. */
         if (setsockopt(
                 listener_fd,
                 SOL_SOCKET,
@@ -181,6 +209,7 @@ static int create_listener(const char *host, uint16_t port)
     return listener_fd;
 }
 
+/* Monta e envia uma resposta de status sem corpo. */
 static int send_status(int client_fd, int status_code)
 {
     char response[SERVER_RESPONSE_BUFFER];
@@ -204,6 +233,7 @@ static int send_status(int client_fd, int status_code)
     ) == (ssize_t)response_length ? 0 : -1;
 }
 
+/* Valida o nome remoto e o combina com a raiz, removendo a barra inicial. */
 static int build_local_path(
     const char *root,
     const char *remote_path,
@@ -239,6 +269,7 @@ static int build_local_path(
     return 0;
 }
 
+/* Envia o comprimento indicado em blocos, tratando leitura interrompida. */
 static int send_file_contents(
     int client_fd,
     int file_fd,
@@ -264,6 +295,7 @@ static int send_file_contents(
             return -1;
         }
 
+        /* O helper completa o envio mesmo quando send transfere menos bytes. */
         if (protocol_send_all(
                 client_fd,
                 buffer,
@@ -278,6 +310,7 @@ static int send_file_contents(
     return 0;
 }
 
+/* Abre e verifica o arquivo; GET envia o conteudo e HEAD apenas a resposta. */
 static int handle_get_or_head(
     const client_context_t *context,
     const protocol_request_t *request
@@ -299,6 +332,7 @@ static int handle_get_or_head(
         return send_status(context->client_fd, STATUS_BAD_REQUEST);
     }
 
+    /* A abertura usa a protecao contra link simbolico definida acima. */
     file_fd = open(local_path, SERVER_OPEN_FLAGS);
 
     if (file_fd < 0) {
@@ -313,6 +347,7 @@ static int handle_get_or_head(
         );
     }
 
+    /* Consulta o arquivo ja aberto e aceita somente arquivo regular no limite. */
     if (fstat(file_fd, &file_stat) < 0) {
         perror("fstat");
         close(file_fd);
@@ -339,6 +374,7 @@ static int handle_get_or_head(
         response,
         sizeof(response),
         STATUS_OK,
+        /* Nesta implementacao, HEAD anuncia comprimento zero e nao envia corpo. */
         request->method == METHOD_HEAD ? 0 : (uint64_t)file_stat.st_size
     );
 
@@ -361,6 +397,7 @@ static int handle_get_or_head(
         return 0;
     }
 
+    /* Depois do cabecalho, falhas no corpo encerram a transferencia. */
     result = send_file_contents(
         context->client_fd,
         file_fd,
@@ -371,6 +408,7 @@ static int handle_get_or_head(
     return result;
 }
 
+/* Recebe exatamente o tamanho declarado e grava cada bloco por completo. */
 static int receive_exact_to_file(
     int client_fd,
     int file_fd,
@@ -388,6 +426,7 @@ static int receive_exact_to_file(
             requested = (size_t)remaining;
         }
 
+        /* Limita recv ao restante do corpo e repete em caso de EINTR. */
         do {
             bytes_received = recv(
                 client_fd,
@@ -404,6 +443,7 @@ static int receive_exact_to_file(
         {
             size_t written = 0;
 
+            /* write pode consumir apenas parte do bloco recebido. */
             while (written < (size_t)bytes_received) {
                 ssize_t bytes_written;
 
@@ -429,6 +469,7 @@ static int receive_exact_to_file(
     return 0;
 }
 
+/* Recebe PUT em temporario e publica o arquivo antes de confirmar sucesso. */
 static int handle_put(
     const client_context_t *context,
     const protocol_request_t *request
@@ -452,6 +493,7 @@ static int handle_put(
         return send_status(context->client_fd, STATUS_BAD_REQUEST);
     }
 
+    /* Registra a existencia inicial para escolher entre 200 e 201. */
     if (stat(local_path, &existing_stat) == 0) {
         existed = 1;
     } else if (errno != ENOENT && errno != ENOTDIR) {
@@ -474,6 +516,7 @@ static int handle_put(
         );
     }
 
+    /* Nome exclusivo por operacao: threads compartilham PID, mas nao temporario. */
     temporary_fd = mkstemp(temporary_template);
 
     if (temporary_fd < 0) {
@@ -484,6 +527,7 @@ static int handle_put(
         );
     }
 
+    /* Define permissoes e recebe o corpo sem truncar o destino anterior. */
     if (fchmod(temporary_fd, 0644) < 0) {
         perror("fchmod");
         goto cleanup;
@@ -497,6 +541,7 @@ static int handle_put(
         goto cleanup;
     }
 
+    /* Sincroniza o conteudo; nao equivale a sincronizar o diretorio publicado. */
     if (fsync(temporary_fd) < 0) {
         perror("fsync");
         goto cleanup;
@@ -509,6 +554,7 @@ static int handle_put(
 
     temporary_fd = -1;
 
+    /* Publicacao atomica na mesma raiz; a ultima publicacao do nome prevalece. */
     if (rename(temporary_template, local_path) < 0) {
         perror("rename PUT");
         goto cleanup;
@@ -517,6 +563,7 @@ static int handle_put(
     response_length = protocol_build_response(
         response,
         sizeof(response),
+        /* Confirma o PUT somente depois da publicacao do arquivo completo. */
         existed ? STATUS_OK : STATUS_CREATED,
         0
     );
@@ -531,6 +578,7 @@ static int handle_put(
         (size_t)response_length
     ) == (ssize_t)response_length ? 0 : -1;
 
+/* Fecha o descritor pendente e remove o temporario em caso de falha. */
 cleanup:
     if (temporary_fd >= 0) {
         close(temporary_fd);
@@ -543,6 +591,7 @@ cleanup:
     return result;
 }
 
+/* Le uma requisicao, valida o cabecalho, despacha o metodo e libera a conexao. */
 static void *client_thread(void *argument)
 {
     client_context_t *context = argument;
@@ -555,6 +604,7 @@ static void *client_thread(void *argument)
         return NULL;
     }
 
+    /* O helper recebe o cabecalho ate o delimitador, respeitando o buffer. */
     header_length = protocol_recv_header(
         context->client_fd,
         header,
@@ -567,6 +617,7 @@ static void *client_thread(void *argument)
         return NULL;
     }
 
+    /* O parser aplica os limites antes de iniciar a operacao de arquivo. */
     parse_result = protocol_parse_request(
         header,
         (size_t)header_length,
@@ -575,6 +626,7 @@ static void *client_thread(void *argument)
         &request
     );
 
+    /* Converte falhas de parsing em status; metodos validos seguem ao handler. */
     if (parse_result == PROTOCOL_UNSUPPORTED) {
         (void)send_status(context->client_fd, STATUS_NOT_IMPLEMENTED);
     } else if (parse_result == PROTOCOL_TOO_LARGE) {
@@ -593,11 +645,13 @@ static void *client_thread(void *argument)
         );
     }
 
+    /* Uma operacao por conexao: fecha o socket e descarta o estado da thread. */
     close(context->client_fd);
     free(context);
     return NULL;
 }
 
+/* Configura a CLI e a raiz; aceita conexoes e cria os atendimentos concorrentes. */
 int main(int argc, char **argv)
 {
     const char *host = PROTOCOL_DEFAULT_HOST;
@@ -610,6 +664,7 @@ int main(int argc, char **argv)
     int option;
     struct stat root_stat;
 
+    /* Nomes e argumentos das opcoes devem permanecer compativeis com os scripts. */
     static const struct option long_options[] = {
         {"host", required_argument, NULL, 'h'},
         {"port", required_argument, NULL, 'p'},
@@ -619,6 +674,7 @@ int main(int argc, char **argv)
         {NULL, 0, NULL, 0}
     };
 
+    /* Aplica as opcoes sobre os padroes compartilhados com o protocolo. */
     while ((option = getopt_long(
                 argc,
                 argv,
@@ -664,6 +720,7 @@ int main(int argc, char **argv)
         }
     }
 
+    /* Rejeita argumentos extras e valida a raiz antes de abrir a porta. */
     if (optind != argc) {
         fprintf(stderr, "Argumento inesperado: %s\n", argv[optind]);
         return EXIT_FAILURE;
@@ -674,6 +731,7 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
+    /* Usa o diretorio existente ou cria a raiz quando ela ainda nao existe. */
     if (stat(root, &root_stat) == 0) {
         if (!S_ISDIR(root_stat.st_mode)) {
             fprintf(stderr, "A raiz nao e um diretorio: %s\n", root);
@@ -689,13 +747,16 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
+    /* Cada conexao recebe uma copia destes limites de validacao. */
     limits = protocol_default_limits();
     limits.max_file_size = max_file_size;
 
+    /* Queda do cliente nao encerra o processo; INT/TERM solicitam parada. */
     signal(SIGPIPE, SIG_IGN);
     signal(SIGINT, handle_signal);
     signal(SIGTERM, handle_signal);
 
+    /* Inicia a escuta e escreve o diagnostico de inicializacao em stderr. */
     listener_fd = create_listener(host, port);
 
     if (listener_fd < 0) {
@@ -711,6 +772,7 @@ int main(int argc, char **argv)
         max_file_size
     );
 
+    /* O laco principal aceita conexoes sem executar suas transferencias. */
     while (server_running) {
         client_context_t *context;
         pthread_t thread;
@@ -728,6 +790,7 @@ int main(int argc, char **argv)
             break;
         }
 
+        /* Aloca estado proprio; falhas antes da thread liberam socket e memoria. */
         context = calloc(1, sizeof(*context));
 
         if (context == NULL) {
@@ -751,6 +814,7 @@ int main(int argc, char **argv)
             continue;
         }
 
+        /* A thread passa a cuidar da conexao e da liberacao do contexto. */
         thread_result = pthread_create(
             &thread,
             NULL,
@@ -769,6 +833,7 @@ int main(int argc, char **argv)
             continue;
         }
 
+        /* Libera recursos da thread ao terminar, sem exigir join no laco principal. */
         thread_result = pthread_detach(thread);
 
         if (thread_result != 0) {
@@ -780,6 +845,7 @@ int main(int argc, char **argv)
         }
     }
 
+    /* Fecha a escuta ao sair do laco principal. */
     close(listener_fd);
     return EXIT_SUCCESS;
 }

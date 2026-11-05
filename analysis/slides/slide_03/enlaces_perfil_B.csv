@@ -1,0 +1,6 @@
+node1,node2,name1,name2,ip1,ip2,network,bandwidth_mbps,delay_oneway_ms,loss_pct
+1,3,Cliente,R-Acesso-Cliente,10.10.1.10,10.10.1.1,10.10.1.0/24,0.0,0.0,0.0
+3,4,R-Acesso-Cliente,R-Nucleo-1,10.10.2.1,10.10.2.2,10.10.2.0/30,0.0,0.0,0.0
+4,5,R-Nucleo-1,R-Nucleo-2,10.10.3.1,10.10.3.2,10.10.3.0/30,20.0,20.0,0.0
+5,6,R-Nucleo-2,R-Acesso-Servidor,10.10.4.1,10.10.4.2,10.10.4.0/30,0.0,0.0,0.0
+6,2,R-Acesso-Servidor,Servidor,10.10.5.1,10.10.5.10,10.10.5.0/24,0.0,0.0,0.0

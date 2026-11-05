@@ -1,0 +1,64 @@
+slide,arquivo,conteudo
+1,slide_01/objetivo.png,Pergunta central e fatores investigados
+1,slide_01/objetivo.svg,Pergunta central e fatores investigados
+1,slide_01/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem"
+2,slide_02/arquitetura.png,"Arquitetura, operações e publicação"
+2,slide_02/arquitetura.svg,"Arquitetura, operações e publicação"
+2,slide_02/arquitetura.mmd,Fonte Mermaid editável do diagrama
+2,slide_02/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem"
+3,slide_03/enlaces_perfil_A.csv,Enlaces e parâmetros do XML A
+3,slide_03/enlaces_perfil_B.csv,Enlaces e parâmetros do XML B
+3,slide_03/perfis.csv,Parâmetros dos XMLs conferidos com a matriz
+3,slide_03/topologia.png,"Nós e gargalo derivados do XML, com parâmetros dos perfis"
+3,slide_03/topologia.svg,"Nós e gargalo derivados do XML, com parâmetros dos perfis"
+3,slide_03/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem"
+4,slide_04/matriz.csv,Matriz experimental versionada
+4,slide_04/matriz_metodo.png,"Fatores, quantidades planejadas e unidade do IC"
+4,slide_04/matriz_metodo.svg,"Fatores, quantidades planejadas e unidade do IC"
+4,slide_04/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem"
+5,slide_05/cobertura.csv,"Cobertura, ausências e falhas por célula"
+5,slide_05/registros_reais.json,Exemplos GET/PUT copiados dos registros originais
+5,slide_05/cobertura_registros.png,Cobertura e exemplos reais sem simular terminal ao vivo
+5,slide_05/cobertura_registros.svg,Cobertura e exemplos reais sem simular terminal ao vivo
+5,slide_05/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem"
+6,slide_06/get_tempo.png,GET: response_ms por concorrência com IC95%
+6,slide_06/get_tempo.svg,GET: response_ms por concorrência com IC95%
+6,slide_06/put_tempo.png,PUT: response_ms por concorrência com IC95%
+6,slide_06/put_tempo.svg,PUT: response_ms por concorrência com IC95%
+6,slide_06/estatisticas_tempo.csv,Estatísticas de tempo de todas as células
+6,slide_06/get_destaques_tempo.csv,"Valores exatos GET 10 MiB, C=1/32, com IC95%"
+6,slide_06/get_destaques_tempo.png,GET de 10 MiB — valores em destaque
+6,slide_06/get_destaques_tempo.svg,GET de 10 MiB — valores em destaque
+6,slide_06/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem"
+7,slide_07/get_vazao_individual.png,GET: individual_mbps por concorrência com IC95%
+7,slide_07/get_vazao_individual.svg,GET: individual_mbps por concorrência com IC95%
+7,slide_07/put_vazao_individual.png,PUT: individual_mbps por concorrência com IC95%
+7,slide_07/put_vazao_individual.svg,PUT: individual_mbps por concorrência com IC95%
+7,slide_07/estatisticas_vazao_individual.csv,"Estatísticas de vazão individual GET/PUT, sem HEAD"
+7,slide_07/get_destaques_vazao.csv,"Valores exatos GET 10 MiB, C=1/32, com IC95%"
+7,slide_07/get_destaques_vazao.png,GET de 10 MiB — valores em destaque
+7,slide_07/get_destaques_vazao.svg,GET de 10 MiB — valores em destaque
+7,slide_07/FORMULA.md,Fórmula e interpretação da métrica
+7,slide_07/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem"
+8,slide_08/operacoes_tempo.csv,"Tempo por operação, C=1, com IC95%"
+8,slide_08/comparacao_operacoes.png,"GET, PUT e HEAD — concorrência 1"
+8,slide_08/comparacao_operacoes.svg,"GET, PUT e HEAD — concorrência 1"
+8,slide_08/sentidos_operacoes.png,Sentidos do conteúdo e consulta HEAD
+8,slide_08/sentidos_operacoes.svg,Sentidos do conteúdo e consulta HEAD
+8,slide_08/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem"
+9,slide_09/evidencias.csv,Inventário de evidências e pendências
+9,slide_09/calibracao_inventario.csv,Existência e tamanho dos arquivos esperados de calibração
+9,slide_09/evidencias_limites.png,Evidências disponíveis e limitações experimentais
+9,slide_09/evidencias_limites.svg,Evidências disponíveis e limitações experimentais
+9,slide_09/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem"
+10,slide_10/contribuicoes.csv,Divisão a revisar conforme a participação real
+10,slide_10/contribuicoes.png,Contribuições dos integrantes
+10,slide_10/contribuicoes.svg,Contribuições dos integrantes
+10,slide_10/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem"
+11,slide_11/conclusoes.csv,Síntese calculada e limite da avaliação de saturação
+11,slide_11/autoavaliacao_conclusao.png,Autoavaliação sugerida e resultados observados
+11,slide_11/autoavaliacao_conclusao.svg,Autoavaliação sugerida e resultados observados
+11,slide_11/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem"
+0,fontes_json.csv,SHA-256 dos JSONs usados na análise
+0,proveniencia.json,Fontes e ambiente da geração
+0,README.md,Índice e orientações gerais

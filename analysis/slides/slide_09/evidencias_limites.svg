@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1152pt" height="648pt" viewBox="0 0 1152 648" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-05T16:15:34.770245</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 648 
+L 1152 648 
+L 1152 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 71.51616 462.8664 
+L 529.36704 462.8664 
+Q 548.44416 462.8664 548.44416 454.7016 
+L 548.44416 168.0264 
+Q 548.44416 159.8616 529.36704 159.8616 
+L 71.51616 159.8616 
+Q 52.43904 159.8616 52.43904 168.0264 
+L 52.43904 454.7016 
+Q 52.43904 462.8664 71.51616 462.8664 
+z
+" clip-path="url(#p17643c264f)" style="fill: #f3f7fa; stroke: #087f8c; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 622.63296 462.8664 
+L 1080.48384 462.8664 
+Q 1099.56096 462.8664 1099.56096 454.7016 
+L 1099.56096 168.0264 
+Q 1099.56096 159.8616 1080.48384 159.8616 
+L 622.63296 159.8616 
+Q 603.55584 159.8616 603.55584 168.0264 
+L 603.55584 454.7016 
+Q 603.55584 462.8664 622.63296 462.8664 
+z
+" clip-path="url(#p17643c264f)" style="fill: #f3f7fa; stroke: #d56825; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 20px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #087f8c" x="300.4416" y="200.352875" transform="rotate(-0 300.4416 200.352875)">Evidências disponíveis</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 18px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #18354b" transform="translate(190.683788 241.288875)">36/36 células completas</text>
+    <text style="font-size: 18px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #18354b" transform="translate(136.447538 267.388875)">GET: 1804/1804 hashes compatíveis</text>
+    <text style="font-size: 18px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #18354b" transform="translate(218.37285 293.128875)">Fatores separados</text>
+    <text style="font-size: 18px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #18354b" transform="translate(225.817538 320.972625)">IC entre rodadas</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 20px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d56825" x="851.5584" y="200.352875" transform="rotate(-0 851.5584 200.352875)">Pendências de evidência</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 18px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #18354b" transform="translate(758.391525 242.672625)">Hash do destino PUT</text>
+    <text style="font-size: 18px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #18354b" transform="translate(723.101681 267.318562)">Calibração nos dois sentidos</text>
+    <text style="font-size: 18px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #18354b" transform="translate(739.162463 293.199187)">Janela comum da rodada</text>
+    <text style="font-size: 18px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #18354b" transform="translate(727.701525 319.228875)">Recursos do host sob carga</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 19px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #18354b" x="576" y="531.36" transform="rotate(-0 576 531.36)">Tempo cresce e taxa individual cai; a causa não é isolada apenas por esses gráficos.</text>
+   </g>
+  </g>
+  <g id="text_6">
+   <text style="font-weight: 700; font-size: 26px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #18354b" x="63.36" y="59.675938" transform="rotate(-0 63.36 59.675938)">09  /  Evidências e limites das conclusões</text>
+  </g>
+  <g id="text_7">
+   <text style="font-size: 15px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #586879" x="63.36" y="92.653125" transform="rotate(-0 63.36 92.653125)">Cobertura completa não substitui calibração ou hash no destino</text>
+  </g>
+  <g id="text_8">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #586879" x="63.36" y="618.84" transform="rotate(-0 63.36 618.84)">Ponto de saturação não determinado  •  não usar soma de taxas como goodput agregado</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p17643c264f">
+   <rect x="46.08" y="123.12" width="1059.84" height="453.6"/>
+  </clipPath>
+ </defs>
+</svg>

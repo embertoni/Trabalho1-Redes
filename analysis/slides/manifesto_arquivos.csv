@@ -1,0 +1,65 @@
+slide,arquivo,conteudo,bytes,sha256
+1,slide_01/objetivo.png,Pergunta central e fatores investigados,142280,b2934266f3441fd408e017de43c9c489f9f3472e994e61491db0bdd6d6596156
+1,slide_01/objetivo.svg,Pergunta central e fatores investigados,10110,7d990b3a590495a900eca9ed9a3031dd0be9dae73a5983a077e0625aca64c240
+1,slide_01/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem",978,054d035a7d0e68c830f9f250915b0130221fd66dfb47b88900e43015cf8a18ca
+2,slide_02/arquitetura.png,"Arquitetura, operações e publicação",189181,8fb5200ed001513b58248c67c704a976cc98afc724a0bf4c7583e2355026ba7f
+2,slide_02/arquitetura.svg,"Arquitetura, operações e publicação",12586,8ec69abb733ee1b721995619c25a2f5bce4bb01fc17f902fe89d6b26d8ce1721
+2,slide_02/arquitetura.mmd,Fonte Mermaid editável do diagrama,211,892495692b4107e902d62ad51b07d6f904c653985dec126fd6bd12314d941ab9
+2,slide_02/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem",1410,3cfe86fc1fc43c4f8a148a560cd67a62791e389638bcdf3b94cccd3f7d46c8a7
+3,slide_03/enlaces_perfil_A.csv,Enlaces e parâmetros do XML A,460,0d6809e0bd61965ab044a7ad9e1f3d7e16f8c5193d1c40463bf9d73d6eb7c946
+3,slide_03/enlaces_perfil_B.csv,Enlaces e parâmetros do XML B,460,04d00c17193c447d82bb1f829886a83a22650a27145b1866dcfee808f96982b2
+3,slide_03/perfis.csv,Parâmetros dos XMLs conferidos com a matriz,105,0a73f4a1455650ac318095542e39277d121db943844b35290420b7125132555e
+3,slide_03/topologia.png,"Nós e gargalo derivados do XML, com parâmetros dos perfis",148458,3da9d3666ad61c89554d8eb0e3a736fea148891b86ccfcd2627511c8e54b7110
+3,slide_03/topologia.svg,"Nós e gargalo derivados do XML, com parâmetros dos perfis",19397,013c336559dd28bc0ba98a711b3002451bf79266b7d63c96e940dba4085b251c
+3,slide_03/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem",1765,f51229977f00a8770095ec0360337e78a37c97e7fc73e4968440572e4ddd7174
+4,slide_04/matriz.csv,Matriz experimental versionada,2040,0ed8afe6dae4696e7a890aa6c2a3260bd11a31c6ed49faf921ca5c0232f96ccc
+4,slide_04/matriz_metodo.png,"Fatores, quantidades planejadas e unidade do IC",175025,323da026509d2c89dc76a6d75fa349f5992bbbfe78d37bfea56fa05b9d8d6e18
+4,slide_04/matriz_metodo.svg,"Fatores, quantidades planejadas e unidade do IC",12951,76a743776e0d60b816a2c87c7b8ec02757dbe81ca05044a2f7000ad06334c1d6
+4,slide_04/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem",1229,58ee3edc2e0c67a9c32646e61450f5131a8d4c03d9bd9fdc70b5863c171d561f
+5,slide_05/cobertura.csv,"Cobertura, ausências e falhas por célula",3629,58ca2fac47b5dc154a1ead597b83aa6e4660585a8cda233847926ce58ded33c1
+5,slide_05/registros_reais.json,Exemplos GET/PUT copiados dos registros originais,697,4a5f607c7b49b769bf621de7232e3aff0d2d48bddc8b1523edd1fe9205315b20
+5,slide_05/cobertura_registros.png,Cobertura e exemplos reais sem simular terminal ao vivo,170421,685eebcd1ea0e52abb978a3bd90828853ef98fbe964cb0d41529fcc890d91ee5
+5,slide_05/cobertura_registros.svg,Cobertura e exemplos reais sem simular terminal ao vivo,10378,f84e1b626a49a56823a450b9a19b642d4db2823f19cba56756ee734ecafad9e7
+5,slide_05/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem",2202,755abe602d1c816f2add7a76f33f53547437722bb5d6ead37fa1475c9538787e
+6,slide_06/get_tempo.png,GET: response_ms por concorrência com IC95%,175044,10411eec6fb3218cdf1bb56dbaa4cabdfa1acce09388c1d0fa2b187b71e49d18
+6,slide_06/get_tempo.svg,GET: response_ms por concorrência com IC95%,36716,22e25bf597005d68cdd7e46c58ec5159a851e1571cd13c70a9eba9da27be78d4
+6,slide_06/put_tempo.png,PUT: response_ms por concorrência com IC95%,174464,6c25793c6ca45fde849a75320ca5b7c9497ec9eb6ea5304b305f932b05abbf75
+6,slide_06/put_tempo.svg,PUT: response_ms por concorrência com IC95%,36720,3f6043f230a2d85d09516c7bcbd48cd97e88f85ebea7c15fee79eb6beb33befc
+6,slide_06/estatisticas_tempo.csv,Estatísticas de tempo de todas as células,6567,def364465c578a6899d8a000346319b96323873bdb8f3fbb0b765cac841c2a49
+6,slide_06/get_destaques_tempo.csv,"Valores exatos GET 10 MiB, C=1/32, com IC95%",294,485a50d7862407c0367ad09e4d2834b87e8fa60cf8c059a1c594384638eec3a2
+6,slide_06/get_destaques_tempo.png,GET de 10 MiB — valores em destaque,89776,dc0c8a12418492bf6f22f0004a55ab459344eeb6b89a73ab26d5a625decd5ad6
+6,slide_06/get_destaques_tempo.svg,GET de 10 MiB — valores em destaque,7314,ac927b7f3c3aa1f3604695d9d0d68ed8d32b8a4d5251621e0b7b0ec2caee23f2
+6,slide_06/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem",1573,1e0b01253abc7dc16e6d573d1f6b49c4734f7b3dea469ef98ac5ea61ecdb4df5
+7,slide_07/get_vazao_individual.png,GET: individual_mbps por concorrência com IC95%,175002,fab04f7334623d2e5ec4726ca80209db9631cd516e853f01e97c0a7094a8b0d5
+7,slide_07/get_vazao_individual.svg,GET: individual_mbps por concorrência com IC95%,35347,c14415f996b86c1c791f239402dc330d50bbedef8387f4380f7fde19262ede89
+7,slide_07/put_vazao_individual.png,PUT: individual_mbps por concorrência com IC95%,172671,9716d681ef45fd1171a1e00899a4f5d462242d51fa75afb53a1b113e0bfb2561
+7,slide_07/put_vazao_individual.svg,PUT: individual_mbps por concorrência com IC95%,35338,d1caacd1647bb62884b94a2d0d4c5d802f7605f0748cffc86dde2de70f9323a9
+7,slide_07/estatisticas_vazao_individual.csv,"Estatísticas de vazão individual GET/PUT, sem HEAD",4743,067ee6ca79ae1912cf85d79a0ed6d163b05977ca4d98cdac2e93b5dc22758982
+7,slide_07/get_destaques_vazao.csv,"Valores exatos GET 10 MiB, C=1/32, com IC95%",299,d11119e727df7bda98a39be395f40a85ef8a8009bc92b9f7f0f4297e74f97304
+7,slide_07/get_destaques_vazao.png,GET de 10 MiB — valores em destaque,86667,4dde12393460db0856543bae3f39e1109859154ace26222a70f3c1816ae8812e
+7,slide_07/get_destaques_vazao.svg,GET de 10 MiB — valores em destaque,7319,beebe1af56b1185bbe36e39120a5271982018ba4c0697fdefe960998dde75695
+7,slide_07/FORMULA.md,Fórmula e interpretação da métrica,265,3ab97b86ff428ce9dca9304d645d15a6bb629bd4a2d36d8cc4c5acb278565788
+7,slide_07/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem",1488,4ad2e6e55e0d12248bbc74099f78628e8f5909448943acef7164f2aee40de30d
+8,slide_08/operacoes_tempo.csv,"Tempo por operação, C=1, com IC95%",493,cc5f51c393fd0b46a50a130fa08b83a57ee86871f8e8017e6c416a88c3cc5f59
+8,slide_08/comparacao_operacoes.png,"GET, PUT e HEAD — concorrência 1",106040,67089af6ce8071cbbbecea31d3e9f0a657eb9f980b9476550dfd7153652fa0b0
+8,slide_08/comparacao_operacoes.svg,"GET, PUT e HEAD — concorrência 1",9039,5036c45d78ce210c38ff0cf2bc65cab82c0f7927f8490cd7c0ec16effe320fb8
+8,slide_08/sentidos_operacoes.png,Sentidos do conteúdo e consulta HEAD,119467,159e9f97b3abbe25069f830a64a4634b225ad921b3c48359f6e94a722131baaf
+8,slide_08/sentidos_operacoes.svg,Sentidos do conteúdo e consulta HEAD,10821,b72cf122457a7f9d34002bdba248edd13f8a47029e82bf9dedb1a918a4a1fb9e
+8,slide_08/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem",1276,5e8c85630cba16c88c4300b30e90025eaefa4b2d1de082f54f98d9f67330acf6
+9,slide_09/evidencias.csv,Inventário de evidências e pendências,210,e1ef30410119c3ef174625a90b628419bb6c0b01d793c3923d301a77beb4c21f
+9,slide_09/calibracao_inventario.csv,Existência e tamanho dos arquivos esperados de calibração,253,3fb2082c3e6aa0389c8cfb9688e6d216bdfc55c997508eef1cb05f7be1fbccdd
+9,slide_09/evidencias_limites.png,Evidências disponíveis e limitações experimentais,162590,bff604d5d01b4239b8b2c91c5d956b82e567d943cfee3cb95c3a94ec13092d87
+9,slide_09/evidencias_limites.svg,Evidências disponíveis e limitações experimentais,6992,8ebe903ede2811abc17da8c2feb8fffb02f0b407e5c2100bd2be9d168f6f45c0
+9,slide_09/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem",1711,4041139eb58123bee375235afb3d70368a2da3dcc383da2096b80facf2b06bc7
+10,slide_10/contribuicoes.csv,Divisão a revisar conforme a participação real,367,602688936a6a965b8448c4cbdda926d0aadccc57691ed70e65445b224c3d78a4
+10,slide_10/contribuicoes.png,Contribuições dos integrantes,167930,f500ccd31c7b831e65280bcb0b04c9386321df04e780344c0c74438efc772717
+10,slide_10/contribuicoes.svg,Contribuições dos integrantes,12071,1436c78787fe3ef3ee890e2a85b2a00a90bbe17704c28c325a70b07b91f1eefd
+10,slide_10/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem",2335,7d35dd2c79d84a8fd08a443d9b0b10340e6ccaaae833ca58f1a38a61470886e5
+11,slide_11/conclusoes.csv,Síntese calculada e limite da avaliação de saturação,130,85e02970961ac6507c27b4fb9d3a625d5f6f6989eed463248b4b47ae1a944c66
+11,slide_11/autoavaliacao_conclusao.png,Autoavaliação sugerida e resultados observados,191217,9160cdfb0b9faac8426610b274d918aac55ce67f0c46fa63e8e1a47d88f2a1b8
+11,slide_11/autoavaliacao_conclusao.svg,Autoavaliação sugerida e resultados observados,8471,8da78948f0765e2b75559fb38f5d9e13bfe144bc2d6bc1bf3146e059972d321e
+11,slide_11/INSTRUCOES.md,"Conteúdo, fala e instruções de montagem",2299,45d0613bceac795d78ae3850ef8c9293d7aafa722238ae58b5958688408fb12b
+0,fontes_json.csv,SHA-256 dos JSONs usados na análise,562860,12e0bec0e2102cead8a311a1a24369966fd39e48eaa7c7936fe1fb5663337bb8
+0,proveniencia.json,Fontes e ambiente da geração,1243,e9bc8429af67a6c4f9dafdc119fa4910e056253f29257ba655604c5a1552b95c
+0,README.md,Índice e orientações gerais,7709,f045919627212809ab71b0e3386fdd2accbc6c209c31c168dc8971a6e4b510e7
+0,indice.csv,Índice tabular dos arquivos produzidos,4670,1cdcaecbe869d46b2ade322e3f62dd3f08776de945ce51c20ee4ef363d4d6995

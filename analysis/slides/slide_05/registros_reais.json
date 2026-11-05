@@ -1,0 +1,30 @@
+[
+  {
+    "source": "experiments/raw/json/S001-r01-w01.json",
+    "identifier": "S001-r01-w01",
+    "client_result": {
+      "status": "ok",
+      "method": "GET",
+      "remote": "/workload-2MiB.bin",
+      "status_code": 200,
+      "bytes": 2097152,
+      "elapsed_ms": 249.086,
+      "throughput_mbps": 67.355,
+      "error": null
+    }
+  },
+  {
+    "source": "experiments/raw/json/S007-r01-w01.json",
+    "identifier": "S007-r01-w01",
+    "client_result": {
+      "status": "ok",
+      "method": "PUT",
+      "remote": "/campaign-S007-r01-w01.bin",
+      "status_code": 201,
+      "bytes": 2097152,
+      "elapsed_ms": 234.934,
+      "throughput_mbps": 71.413,
+      "error": null
+    }
+  }
+]

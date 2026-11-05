@@ -1,0 +1,39 @@
+{
+  "gerado_utc": "2026-11-05T19:15:36.138358+00:00",
+  "raw": "experiments/raw",
+  "fontes_extras": [
+    {
+      "path": "topology/trabalho1-etapa4-perfil-A.xml",
+      "sha256": "8595d98e0fd935bf06a02c116fd677275bbb6b00c136147f9de3bee11a0757e9"
+    },
+    {
+      "path": "topology/trabalho1-etapa4-perfil-B.xml",
+      "sha256": "55b3053d1cbd68b9de99aa5b8155dcc75dd96f20eda23d02bb5a7369a877d267"
+    },
+    {
+      "path": "configs/experiment_plan.csv",
+      "sha256": "0ed8afe6dae4696e7a890aa6c2a3260bd11a31c6ed49faf921ca5c0232f96ccc"
+    },
+    {
+      "path": "analysis/reports/roteiro_video.md",
+      "sha256": "51e2345490153d2991550f4f7bf6991402e1c0c668d9d38d9d8b3ac5d9d4a565"
+    }
+  ],
+  "notebook_fontes_sha256": "60e9cbaf9af9bf5ba4718776f8dbdbdbcebdc54fc5c1b670cb9dae9d54d1ac24",
+  "git_head": "2ba1776dc8331c80a1eb91f3bd33f5f7ed8987ed",
+  "python": "3.14.4",
+  "bibliotecas": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.1",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2"
+  },
+  "contribuicoes_confirmadas": false,
+  "limites": [
+    "Sem nova execução CORE",
+    "Sem vídeo gerado",
+    "Sem comprovação remota de PUT",
+    "Sem janela medida para goodput agregado",
+    "Calibração inventariada, não aprovada"
+  ]
+}
