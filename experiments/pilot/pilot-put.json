@@ -1,0 +1,1 @@
+{"status":"ok","method":"PUT","remote":"/pilot-2MiB.bin","status_code":201,"bytes":2097152,"elapsed_ms":303.481,"throughput_mbps":55.283,"error":null}

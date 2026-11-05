@@ -1,0 +1,10 @@
+scenario_id=S023
+profile=B
+bandwidth_mbps=20
+delay_oneway_ms=20
+operation=GET
+workload=short_video
+file_size_bytes=10485760
+concurrency=8
+repetition=1
+collected_utc=2026-11-04T23:41:35.882746+00:00

@@ -1,0 +1,31 @@
+Perfil: B
+Arquivo: topology/trabalho1-etapa4-perfil-B.xml
+
+Topologia:
+- Cliente: 10.10.1.10
+- Servidor: 10.10.5.10
+- Porta da aplicação: 9000
+- Enlace de gargalo: R_Nucleo_1 <-> R_Nucleo_2
+
+Parâmetros configurados:
+- Vazão do gargalo: 20 Mbit/s
+- Atraso unidirecional: 20 ms
+- Perda configurada: 0%
+- Modelo de erro: desabilitado
+
+Redes preservadas:
+- 10.10.1.0/24
+- 10.10.2.0/30
+- 10.10.3.0/30
+- 10.10.4.0/30
+- 10.10.5.0/24
+
+Validações:
+- Ping Cliente -> Servidor:
+- Traceroute Cliente -> Servidor:
+- iperf3 Cliente -> Servidor:
+- iperf3 Servidor -> Cliente:
+- tc no R_Nucleo_1:
+- tc no R_Nucleo_2:
+
+Observações:

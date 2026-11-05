@@ -1,0 +1,4 @@
+COMMAND: /work/build/client --host 10.10.5.10 --port 9000 --method PUT --remote /campaign-S012-r03-w26.bin --io-timeout 60 --input /tmp/trabalho1-core/client-data/workload-10MiB.bin
+STDOUT:
+{"status":"ok","method":"PUT","remote":"/campaign-S012-r03-w26.bin","status_code":201,"bytes":10485760,"elapsed_ms":27467.681,"throughput_mbps":3.054,"error":null}
+STDERR:

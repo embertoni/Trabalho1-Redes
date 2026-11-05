@@ -1,0 +1,1 @@
+{"status":"error","method":"GET","remote":"/arquivo-inexistente.bin","status_code":404,"bytes":0,"elapsed_ms":41.813,"throughput_mbps":null,"error":"remote_file_not_found"}

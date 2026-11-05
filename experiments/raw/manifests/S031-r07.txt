@@ -1,0 +1,10 @@
+scenario_id=S031
+profile=B
+bandwidth_mbps=20
+delay_oneway_ms=20
+operation=HEAD
+workload=photo_sharing
+file_size_bytes=2097152
+concurrency=1
+repetition=7
+collected_utc=2026-11-05T00:54:03.060628+00:00

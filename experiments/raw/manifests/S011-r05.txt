@@ -1,0 +1,10 @@
+scenario_id=S011
+profile=A
+bandwidth_mbps=100
+delay_oneway_ms=5
+operation=PUT
+workload=short_video
+file_size_bytes=10485760
+concurrency=8
+repetition=5
+collected_utc=2026-11-04T23:05:10.298722+00:00

@@ -1,0 +1,4 @@
+COMMAND: /work/build/client --host 10.10.5.10 --port 9000 --method HEAD --remote /workload-10MiB.bin --io-timeout 60
+STDOUT:
+{"status":"ok","method":"HEAD","remote":"/workload-10MiB.bin","status_code":200,"bytes":0,"elapsed_ms":21.434,"throughput_mbps":null,"error":null}
+STDERR:

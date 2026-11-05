@@ -1,0 +1,4 @@
+COMMAND: /work/build/client --host 10.10.5.10 --port 9000 --method GET --remote /workload-10MiB.bin --io-timeout 60 --output /tmp/trabalho1-core/client-output/campaign/S024/r03/S024-r03-w07.bin
+STDOUT:
+{"status":"ok","method":"GET","remote":"/workload-10MiB.bin","status_code":200,"bytes":10485760,"elapsed_ms":140005.167,"throughput_mbps":0.599,"error":null}
+STDERR:

@@ -1,0 +1,10 @@
+scenario_id=S002
+profile=A
+bandwidth_mbps=100
+delay_oneway_ms=5
+operation=GET
+workload=photo_sharing
+file_size_bytes=2097152
+concurrency=8
+repetition=1
+collected_utc=2026-11-04T22:54:31.260732+00:00

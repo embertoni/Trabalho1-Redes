@@ -1,0 +1,1 @@
+0ded2999b4feff2701cf206a3d7c6a14860975a4cd3f32b849370a72562c4f1f  /tmp/trabalho1-core/client-data/pilot-2MiB.bin

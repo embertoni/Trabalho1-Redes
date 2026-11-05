@@ -1,0 +1,12 @@
+Etapa: 4
+Topologia: cliente - acesso - núcleo - gargalo - núcleo - acesso - servidor
+Perfil: A
+Cliente: 10.10.1.10/24
+Servidor: 10.10.5.10/24
+Gargalo: R_Nucleo_1 <-> R_Nucleo_2
+Vazao configurada: 100 Mbit/s
+Latencia configurada: 10 ms
+Perda configurada: 0%
+Erro configurado: não
+Gateway configurado na GUI: não
+Rotas configuradas manualmente: sim
