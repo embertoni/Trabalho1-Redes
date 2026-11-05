@@ -1,0 +1,55 @@
+{
+  "origin": "SIMULADO_NAO_EXPERIMENTAL",
+  "executed_against_application": false,
+  "cases": [
+    {
+      "case": "timeout",
+      "status_code": 0,
+      "bytes": 0,
+      "error": "timeout",
+      "success": false,
+      "throughput_mbps": null
+    },
+    {
+      "case": "not_found",
+      "status_code": 404,
+      "bytes": 0,
+      "error": "remote_file_not_found",
+      "success": false,
+      "throughput_mbps": null
+    },
+    {
+      "case": "truncated_body",
+      "status_code": 200,
+      "bytes": 1000,
+      "expected_bytes": 2097152,
+      "error": "truncated",
+      "success": false,
+      "throughput_mbps": null
+    },
+    {
+      "case": "hash_mismatch",
+      "status_code": 200,
+      "bytes": 2097152,
+      "error": "integrity",
+      "success": false,
+      "throughput_mbps": null,
+      "source_sha256": "91d3beb88a9b2f778a6c44a1c53b63d3c79931845a9aef84b3fb414610bd1938",
+      "destination_sha256": "f65a89a78c42c7c7e14897f7a9988dc5487a4bd2042e61b259e2cb7e5e98a765"
+    },
+    {
+      "case": "missing_worker",
+      "workers_expected": 8,
+      "workers_observed": 7,
+      "expected_action": "exclude_incomplete_round"
+    },
+    {
+      "case": "duplicate_worker",
+      "ids": [
+        "SIM-run-w01",
+        "SIM-run-w01"
+      ],
+      "expected_action": "reject_duplicate"
+    }
+  ]
+}

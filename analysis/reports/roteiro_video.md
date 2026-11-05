@@ -1,176 +1,211 @@
-# Roteiro do vídeo-relatório — até 10 minutos
+# Roteiro do vídeo-relatório — revisão com medições reais do CORE
 
-Base: [notebook executado](../analise_resultados.ipynb), [guia revisado](../../docs/GUIA_COMPLETO_TRABALHO1_REDES.md), matriz e fontes do repositório. Duração planejada: **9min40s**, com 20 segundos de margem. As falas são uma base para ensaio; o tempo real depende do ritmo e das transições.
+## Orientações iniciais ao grupo — fora dos slides e da narração
 
-Substitua `[Nome 1]` e `[Nome 2]`. A distribuição de responsabilidades abaixo é uma **proposta realista**, não um registro histórico comprovado. Ajustem antes de gravar para refletir o que cada pessoa realmente fez. Não atribuam a alguém trabalho que ela não realizou.
+### Documentação, evidências e limites atuais
+
+A documentação interna e o histórico de desenvolvimento serviram para organizar o trabalho. Há trechos desatualizados e propostas que não representam validações executadas. **Esses documentos não fundamentam a análise final dos resultados**: a análise usa as medições, suas condições de execução e os cálculos sobre elas. As observações sobre documentação ficam exclusivamente nesta abertura.
+
+A nova pasta [comandos/](../../comandos/) acrescenta 12 saídas reais fornecidas de ping, traceroute e iperf, nos dois sentidos e nos dois perfis. A [comparação detalhada](comparacao_medicoes_core.md) relaciona essas saídas à topologia, à campanha e às simulações. A ausência de logs de calibração apontada anteriormente foi parcialmente resolvida: agora há conectividade, rotas e taxas observadas. Não é correto continuar dizendo que a calibração é inteiramente hipotética.
+
+A pasta `comandosip/comandosip` é tratada como A e `comandosipB/comandosipB` como B, em coerência com nomes, taxas e RTTs. Cada combinação perfil/sentido possui um ensaio iperf de cerca de 20 s, dez pings e um traceroute. Não há datas ou identificadores que liguem essas saídas a cada rodada da campanha. Não apresentar a calibração como repetida 11 vezes ou contemporânea a todas as transferências. O arquivo `iperfR_server.txt` mostra o cliente em modo reverso, com conteúdo servidor→cliente; seu nome não muda o sentido efetivamente indicado na saída.
+
+Para a apresentação, usar a linha **receiver** do iperf: A=93,9/94,4 Mbit/s e B=18,9/19,0 Mbit/s, respectivamente cliente→servidor e servidor→cliente. Os 40 pings receberam resposta; isso não significa ausência de retransmissões TCP, que aparecem nos quatro ensaios: 48/62 em A e 11/12 em B. Não atribuir essas retransmissões a uma causa específica nem convertê-las diretamente em percentual de perda.
+
+Permanecem pendentes a janela comum de cada rodada da aplicação, hash do destino PUT, monitoração dos recursos, vínculo de versões/sessão e controle de cache. Os 1.804 PUTs da campanha retornam 201; a campanha mostra criação, não comprova sobrescrita. A inspeção do servidor também identificou HEAD anunciando comprimento zero e caminhos de erro PUT que merecem revisão própria. Não demonstrar tamanho remoto correto por HEAD nem declarar todas as falhas e sobrescritas validadas.
+
+As [simulações](../../tests/fixtures/pendencias_simuladas/README.md) foram comparadas e permanecem separadas. Embora a calibração idealizada tenha valores próximos, a simulação da aplicação subestima a taxa do GET com um cliente: 69,1 contra 87,3 Mbit/s em A e 13,9 contra 17,7 em B, para 10 MiB. **Nenhum número sintético ou platô artificial entra nos resultados deste roteiro.** Não há necessidade de considerações fictícias para apresentar o conteúdo real disponível.
+
+### O que falta para completar o registro das medições
+
+1. Associar cada calibração a um ID de sessão/campanha, data, revisão do código, versões, XML, endereços, rotas e parâmetros efetivos de `tc`. Preservar os logs novos, sem sobrescrevê-los. Repetir calibrações independentes se a intenção for estimar estabilidade e IC; intervalos de um segundo do mesmo iperf não são repetições independentes.
+2. Registrar comando completo, direção, duração e eventual aquecimento. Usar taxa recebida do iperf, RTT de ping e atraso configurado com suas definições distintas. Realizar calibração e transferência da aplicação em momentos separados para não criar tráfego concorrente acidental.
+3. Instrumentar o coordenador para registrar liberação conjunta e fim da rodada em um relógio monotônico comum, incluindo desvio de lançamento, timeouts e falhas. O `started_utc` atual é preenchido após o cliente terminar e não serve como início da tentativa. Não subtrair relógios monotônicos de hosts distintos.
+4. Verificar tamanho e SHA-256 de origem/destino de GET e PUT fora da janela de desempenho. Para sobrescrita, preparar destino preexistente e conferir sua substituição; separar esse modo de carga da criação de arquivo novo.
+5. Registrar recursos do host, cache, persistência e ordem das células. Calcular goodput agregado por bytes confirmados/janela comum, preservando falhas e rodadas incompletas. Usar rodada como unidade de IC e não somar taxas individuais.
+6. Executar os testes funcionais pendentes e ampliar perfis mantendo um fator fixo caso se queira separar efeitos de banda e atraso. Os novos logs não resolvem essas questões por si só.
+
+### Montagem e ensaio
+
+- **Duração:** 11 slides em **9min40s**, com 20 s de margem. A abertura técnica não é narrada. Reservar cerca de 10 s para demonstração no slide 5 e ensaiar as transições.
+- **Contribuições:** a divisão entre `[Nome 1]` e `[Nome 2]` continua sendo proposta realista para dois integrantes. Confirmar e ajustar à participação efetiva antes de narrar em primeira pessoa. A autoavaliação também é uma sugestão.
+- **Novo visual:** [calibracao_core.png](comparacao_core/calibracao_core.png), 2560×1440, e [SVG editável](comparacao_core/calibracao_core.svg), para o slide 4. As [tabelas extraídas](comparacao_core/calibracao_extraida.csv) preservam números exatos e sentidos. O gráfico arredonda os rótulos para uma casa decimal; a tabela do roteiro conserva três casas no RTT.
+- **Reaproveitamento:** topologia e arquitetura dos slides antigos 2/3; gráficos da aplicação dos slides 6/7/8. A matriz antes no slide 4 passa ao 5. Substituir o antigo slide 9 por comparação entre iperf e aplicação; não usar a curva sintética de saturação. Os caminhos de montagem ficam apenas nesta abertura.
+- **Versões:** esta revisão atualiza o roteiro Markdown e gera o visual novo de calibração; o PDF existente e os blocos antigos de slides no notebook não foram regenerados. Não usar automaticamente instruções antigas de slide 4/5/9. Médias da campanha foram recalculadas e conferidas contra os dados brutos.
+- **Demonstração:** mostrar uma tentativa real já registrada, ou gravar uma execução nova identificada. Se não houver clipe, exibir os campos de uma tentativa existente e narrar sua leitura. Não apresentar animação como captura real. Localhost, se usado, deve ser identificado como demonstração funcional.
 
 ## Sequência e tempo
 
 | Slide | Intervalo | Tema | Apresentador sugerido |
 | --- | --- | --- | --- |
-| 1 | 0:00–0:35 | Problema e objetivo | Integrante 1 |
-| 2 | 0:35–1:25 | O que foi desenvolvido e como | Integrante 1 |
-| 3 | 1:25–2:10 | Topologia e perfis de rede | Integrante 2 |
-| 4 | 2:10–3:00 | Matriz e método de análise | Integrante 2 |
-| 5 | 3:00–3:45 | Demonstração e cobertura | Integrante 1 |
-| 6 | 3:45–4:45 | Resultados de tempo de resposta | Integrante 2 |
-| 7 | 4:45–5:40 | Resultados de vazão individual | Integrante 1 |
-| 8 | 5:40–6:20 | HEAD e significado dos resultados | Integrante 1 |
-| 9 | 6:20–7:25 | Integridade, calibração e limites | Integrante 2 |
-| 10 | 7:25–8:20 | Contribuições dos dois integrantes | Ambos |
-| 11 | 8:20–9:40 | Autoavaliação e conclusão | Ambos |
+| 1 | 0:00–0:30 | Problema e objetivo | Integrante 1 |
+| 2 | 0:30–1:20 | Aplicação e decisões de implementação | Integrante 1 |
+| 3 | 1:20–2:00 | Topologia e perfis | Integrante 2 |
+| 4 | 2:00–2:55 | Rede medida nos dois sentidos | Integrante 2 |
+| 5 | 2:55–3:45 | Matriz, método e demonstração | Integrante 1 |
+| 6 | 3:45–4:40 | Tempo de resposta | Integrante 2 |
+| 7 | 4:40–5:35 | Vazão útil individual | Integrante 1 |
+| 8 | 5:35–6:20 | GET, PUT e HEAD | Integrante 1 |
+| 9 | 6:20–7:20 | Rede, aplicação e concorrência | Integrante 2 |
+| 10 | 7:20–8:15 | Contribuições individuais | Ambos |
+| 11 | 8:15–9:40 | Autoavaliação e conclusão | Ambos |
 
 ## Slide 1 — Problema e objetivo
 
-**Adicionar ao slide:** título “Transferência concorrente de arquivos: desempenho em redes emuladas”; nomes dos dois integrantes; disciplina; uma pergunta central: “Como rede, tamanho e concorrência afetam tempo e vazão?”; ícones de cliente e servidor.
+**Adicionar ao slide:** título “Transferência concorrente de arquivos em redes emuladas”; nomes, disciplina e pergunta “Como rede, tamanho e concorrência afetam tempo e vazão?”. Desenho simples de cliente e servidor, com exemplos de foto e vídeo.
 
-**Fala sugerida — Integrante 1:**
+**Fala — Integrante 1:**
 
-> Nosso trabalho desenvolveu uma aplicação cliente-servidor de arquivos em C e analisou seu desempenho em diferentes condições de rede. O objetivo foi entender como o tamanho do arquivo, a operação e a quantidade de clientes concorrentes influenciam o tempo de resposta e a vazão útil. Escolhemos esse problema porque ele reúne programação com sockets e avaliação experimental de um serviço semelhante aos usados para compartilhar fotos e vídeos.
+> Desenvolvemos uma aplicação cliente-servidor de arquivos em C e avaliamos seu desempenho no CORE. O objetivo foi entender como as condições de rede, o tamanho do arquivo e a concorrência afetam tempo de resposta e vazão útil. Escolhemos cargas associadas a fotos e vídeos curtos porque representam transferências comuns em que vários usuários compartilham os mesmos recursos.
 
-## Slide 2 — O que foi desenvolvido e como
+## Slide 2 — Aplicação e decisões de implementação
 
-**Adicionar ao slide:** diagrama `Cliente C → TCP / subconjunto de HTTP → Servidor C`; três linhas: GET baixa, PUT envia, HEAD consulta metadados; pequenos rótulos “thread por conexão”, “temporário exclusivo” e “publicação com rename”. No rodapé: `src/client.c`, `src/server.c`, `src/protocol.c`.
+**Adicionar ao slide:** diagrama `Cliente em C ↔ TCP / subconjunto de HTTP ↔ Servidor em C`; cartões “GET: baixar”, “PUT: enviar”, “HEAD: consulta sem corpo”; destaques “thread por conexão”, “leituras e escritas parciais” e “temporário exclusivo → fsync → rename”. Usar uma animação simples para explicar o fluxo, sem tratar a animação como execução real.
 
-**Fala sugerida — Integrante 1:**
+**Fala — Integrante 1:**
 
-> Implementamos cliente e servidor com a API de sockets POSIX em C. O protocolo é um subconjunto controlado de HTTP sobre TCP, com uma operação por conexão. GET recebe um arquivo, PUT envia um arquivo ao servidor e HEAD consulta os metadados sem transferir seu conteúdo. O servidor cria uma thread por conexão para permitir atendimento concorrente. A implementação trata mensagens parciais e usa arquivos temporários exclusivos antes da publicação do destino. Isso reduz o risco de deixar um arquivo parcialmente transferido como resultado final. HEAD foi incluído como extensão conservadora do grupo, considerando a ambiguidade apontada no guia.
+> Cliente e servidor usam sockets POSIX em C, com TCP e um subconjunto controlado de HTTP. Cada conexão atende uma operação: GET baixa o arquivo, PUT envia conteúdo e HEAD faz uma consulta sem transferir o corpo. O servidor cria uma thread por conexão, permitindo atendimentos simultâneos. Como TCP entrega um fluxo de bytes, tratamos leituras e escritas parciais. No PUT, os dados são recebidos em um temporário exclusivo; o servidor sincroniza e publica o arquivo antes de confirmar o sucesso. Essas escolhas permitem organizar a concorrência e evitam publicar um arquivo parcialmente recebido como se estivesse completo.
 
-**Orientação visual:** apresentar o fluxo e as decisões; evitar uma captura de código com dezenas de linhas. Não afirmar conformidade completa com HTTP.
+## Slide 3 — Topologia e perfis
 
-## Slide 3 — Onde: topologia e perfis
+**Adicionar ao slide:** seis nós, sem desenhar o gargalo como um nó extra: `Cliente → Acesso cliente → Núcleo 1 → Núcleo 2 → Acesso servidor → Servidor`. Destacar o enlace Núcleo 1↔Núcleo 2. Endereços finais `10.10.1.10` e `10.10.5.10`. Tabela:
 
-**Adicionar ao slide:** captura legível da sessão CORE salva ou desenho fiel `Cliente → acesso → núcleo → gargalo → núcleo → acesso → Servidor`; cliente `10.10.1.10`, servidor `10.10.5.10`; destacar `R_Nucleo_1 ↔ R_Nucleo_2`. Tabela:
-
-| Perfil | Capacidade nominal | Atraso configurado por sentido | Perda configurada |
+| Perfil | Capacidade nominal | Atraso por sentido | Perda artificial configurada |
 | --- | --- | --- | --- |
 | A | 100 Mbit/s | 5 ms | 0% |
 | B | 20 Mbit/s | 20 ms | 0% |
 
-**Fala sugerida — Integrante 2:**
+Rodapé: “Traceroute: quatro roteadores + destino; elevação do RTT após cruzar o núcleo”.
 
-> A topologia salva no CORE coloca cliente e servidor em redes de acesso distintas, conectadas por um núcleo. O enlace entre os dois roteadores de núcleo representa o gargalo. Comparamos o perfil A, de 100 megabits por segundo e 5 milissegundos de atraso por sentido, ao perfil B, de 20 megabits e 20 milissegundos. Não configuramos perda. Os perfis representam condições simplificadas de acesso fixo e móvel, e não características universais dessas tecnologias. Esses valores são parâmetros configurados; a comprovação da calibração é uma limitação que retomaremos.
+**Fala — Integrante 2:**
 
-**Conferência:** os XMLs de A/B preservam `delay=5000/20000` e `bandwidth=100000000/20000000`. A descrição antiga `topologia-etapa4.txt` usa “latência 10 ms” sem a mesma precisão por sentido; use os valores dos XMLs e da matriz, sem chamá-los de RTT medido.
+> No CORE, cliente e servidor ficam em redes de acesso distintas, ligadas por quatro roteadores. O gargalo está entre os dois roteadores de núcleo. Em A configuramos 100 megabits por segundo e 5 milissegundos por sentido; em B, 20 megabits e 20 milissegundos. São representações simplificadas de condições de acesso fixo e móvel, sem perda artificial configurada. Os traceroutes mostram cinco saltos até o destino nos dois sentidos. A elevação do RTT aparece após a travessia do núcleo, coerente com a posição escolhida para o gargalo.
 
-## Slide 4 — Como os experimentos foram analisados
+## Slide 4 — Rede medida nos dois sentidos
 
-**Adicionar ao slide:** matriz visual `2 perfis × 3 operações × 2 tamanhos × 3 concorrências = 36 células`; tamanhos 2/10 MiB; concorrências 1/8/32; 11 rodadas por célula; total de 396 rodadas e 5.412 requisições. Caixa em destaque: “Unidade do IC: rodada completa”.
+**Adicionar ao slide:** gráfico com dois painéis, taxa recebida no iperf e RTT médio no ping. Alternativamente, usar a tabela abaixo como elemento principal, evitando duplicar tabela e gráfico na mesma tela:
 
-**Fala sugerida — Integrante 2:**
+| Perfil | Sentido | iperf recebido (Mbit/s) | RTT médio (ms) |
+| --- | --- | --- | --- |
+| A | Cliente → servidor | 93,9 | 10,555 |
+| A | Servidor → cliente | 94,4 | 10,655 |
+| B | Cliente → servidor | 18,9 | 40,588 |
+| B | Servidor → cliente | 19,0 | 40,545 |
 
-> A matriz combina os dois perfis, três operações, arquivos de 2 e 10 mebibytes e concorrências de 1, 8 e 32. Os tamanhos representam cargas de compartilhamento de fotos e vídeos curtos. São 36 configurações, com 11 rodadas cada, totalizando 396 rodadas e 5.412 requisições. O notebook lê os JSONs brutos e confere os fatores contra a matriz. Para a inferência, calculamos médias por rodada e depois média, mediana, desvio amostral e intervalo de confiança de 95% com Student. Workers da mesma rodada compartilham recursos e não são tratados como repetições independentes.
+Rodapé: “Por perfil/sentido: 1 ensaio iperf ≈20 s e 10 pings. Sem perdas nos 40 pings; houve retransmissões TCP”. Não inserir barras de IC de ensaios independentes.
 
-## Slide 5 — Demonstração e cobertura dos dados
+**Fala — Integrante 2:**
 
-**Adicionar ao slide:** clipe de aproximadamente 15 segundos mostrando uma execução real de GET e PUT com os executáveis C e sua saída JSON; ao lado, resumo do notebook: 36/36 células com 11 rodadas completas; zero requisições ausentes; zero falhas detectadas nos critérios avaliados. Rodapé: “Integridade de PUT no destino: não comprovada pelos hashes preservados”.
+> Medimos a rede nos dois sentidos. No iperf, a taxa recebida ficou entre 93,9 e 94,4 megabits por segundo no perfil A, e entre 18,9 e 19 no B. Os RTTs médios ficaram próximos de 10,6 e 40,6 milissegundos, coerentes com a contribuição de ida e volta do gargalo. Cada combinação tem um ensaio de aproximadamente vinte segundos e dez pings. Todos os quarenta pings receberam resposta, mas o iperf registrou retransmissões TCP. Portanto, não confundimos ausência de perda nessa amostra de ping com ausência de retransmissões. Essas medições dão uma referência real da rede para interpretar as transferências da aplicação.
 
-**Fala sugerida — Integrante 1:**
+## Slide 5 — Matriz, método e demonstração
 
-> Aqui mostramos a interface do cliente e a saída estruturada que registra código de resposta, bytes, duração e vazão. Na campanha analisada, todas as 36 configurações têm as 11 rodadas completas previstas. Não encontramos requisições ausentes nem falhas nos critérios de telemetria avaliados, e os hashes preservados de GET não apresentaram divergências. Isso demonstra cobertura e consistência dos registros analisados, mas não comprova todas as propriedades do sistema: no PUT, falta o hash do arquivo publicado no servidor.
+**Adicionar ao slide:** expressão `2 perfis × 3 operações × 2 tamanhos × 3 concorrências = 36 configurações`; tamanhos 2/10 MiB; concorrências 1/8/32; 11 rodadas por configuração; cartões “396 rodadas” e “5.412 requisições”. Destaque “IC95% de Student entre rodadas”. Reservar cerca de 10 s para mostrar uma tentativa real de GET ou PUT e seus campos status, bytes, duração e taxa; não exigir digitação ao vivo.
 
-**Preparação:** gravar o clipe antes do vídeo, em ambiente disponível e identificado. Caso a demonstração seja em localhost, rotular “demonstração funcional em localhost”; ela não representa evidência da topologia CORE. Se não houver nova execução, mostrar registros existentes com a legenda “registro da campanha”, sem simular uma execução ao vivo. Não mostrar comandos digitados sem tempo para sua execução real. Teste de sobrescrita só deve ser anunciado como demonstrado se houver evidência antes/depois.
+**Fala — Integrante 1:**
 
-## Slide 6 — Tempo de resposta: efeito da rede e da concorrência
+> Combinamos dois perfis, três operações, arquivos de 2 e 10 mebibytes e concorrências de 1, 8 e 32 clientes. Foram onze rodadas em cada uma das 36 configurações, totalizando 396 rodadas e 5.412 requisições. Nesta tentativa, vemos os campos usados para acompanhar status, bytes, duração e taxa individual.
 
-**Adicionar ao slide:** usar os painéis GET A/B do gráfico de tempo do notebook, ampliados; não colocar a figura inteira com seis painéis em tamanho ilegível. Destacar o arquivo de 10 MiB:
+**Ação:** exibir a tentativa por aproximadamente 10 s.
 
-| Concorrência | Perfil A | Perfil B |
+**Continuação — Integrante 1:**
+
+> A análise agrega os clientes de cada rodada e calcula o intervalo de confiança entre as onze rodadas. Clientes simultâneos compartilham recursos e não são contados como repetições independentes. HEAD fica sem vazão de conteúdo. A escolha de onze rodadas por configuração também permite descrever a variação entre execuções, em vez de depender de uma única medição. Em cada rodada concorrente, os clientes compartilham a mesma condição de rede; por isso, primeiro resumimos os clientes da rodada e depois comparamos as rodadas independentes.
+
+## Slide 6 — Tempo de resposta
+
+**Adicionar ao slide:** gráfico de GET com painéis A/B, linhas de 2/10 MiB e IC95% entre rodadas. Eixo de tempo em segundos. Destaque para GET de 10 MiB:
+
+| Clientes concorrentes | Perfil A (s) | Perfil B (s) |
 | --- | --- | --- |
-| 1 | 960,8 ms | 4.729,8 ms |
-| 32 | 28.105,4 ms | 137.936,0 ms |
+| 1 | 0,961 | 4,730 |
+| 32 | 28,105 | 137,936 |
 
-Legenda: “Médias entre rodadas; barras = IC95% de Student; n=11 por célula”.
+Legenda: “Média das médias de rodada; IC95% de Student; n=11 por configuração”. Se houver pouco espaço, usar dois pares de cartões numéricos em vez da tabela.
 
-**Fala sugerida — Integrante 2:**
+**Fala — Integrante 2:**
 
-> O primeiro resultado é o aumento do tempo com a concorrência, especialmente nos arquivos maiores. No GET de 10 mebibytes, com um cliente, a média ficou próxima de 961 milissegundos no perfil A e 4,73 segundos no perfil B. Com 32 clientes, passou para aproximadamente 28,1 e 137,9 segundos. O perfil B teve maior latência nas 18 comparações equivalentes de método, tamanho e concorrência. As barras representam a incerteza entre rodadas, não entre clientes da mesma rodada. O comportamento é compatível com maior tempo de serviço e compartilhamento de recursos. Como capacidade e atraso mudam juntos entre A e B, não podemos atribuir toda a diferença isoladamente à latência ou à banda.
+> O tempo de resposta cresce com a concorrência, principalmente no arquivo maior. No GET de dez mebibytes com um cliente, a média foi de 0,961 segundo em A e 4,730 segundos em B. Com 32 clientes, passou para 28,105 segundos em A e 137,936 em B. O perfil B apresentou maior tempo nas dezoito comparações equivalentes de operação, tamanho e concorrência. As barras mostram a incerteza entre rodadas. A rede medida ajuda a contextualizar esse comportamento: B combina menor taxa disponível e maior RTT. Como alteramos capacidade e atraso juntos, o resultado representa o efeito combinado dessas condições, sem separar a contribuição de cada fator. A diferença é consistente nas dezoito combinações de método, tamanho e concorrência, o que torna a tendência clara dentro desta matriz. Ainda assim, as barras de confiança descrevem variabilidade entre rodadas nas células; elas não removem limitações de coleta nem transformam a comparação entre perfis em um experimento que isola a banda da latência.
 
 ## Slide 7 — Vazão útil individual
 
-**Adicionar ao slide:** painéis GET A/B do gráfico de vazão individual do notebook; destacar 10 MiB e esta tabela:
+**Adicionar ao slide:** gráfico GET A/B de vazão individual, separado por tamanho; fórmula `bytes úteis × 8 / duração_s / 10⁶`. Tabela ou cartões para GET de 10 MiB:
 
-| Concorrência | Perfil A | Perfil B |
+| Clientes concorrentes | Perfil A (Mbit/s) | Perfil B (Mbit/s) |
 | --- | --- | --- |
-| 1 | 87,322 Mbit/s | 17,744 Mbit/s |
-| 32 | 2,997 Mbit/s | 0,609 Mbit/s |
+| 1 | 87,322 | 17,744 |
+| 32 | 2,997 | 0,609 |
 
-Adicionar a fórmula `vazão individual = bytes úteis × 8 / tempo em segundos / 10⁶`. Não usar o gráfico antigo de HEAD nem o campo antigo `throughput_aggregate_mbps` como vazão medida do enlace.
+Legenda: “Taxa média por transferência; IC95% entre rodadas”.
 
-**Fala sugerida — Integrante 1:**
+**Fala — Integrante 1:**
 
-> A vazão aqui é a taxa útil de cada transferência, calculada a partir dos bytes do arquivo e de sua duração. No GET de 10 mebibytes com um cliente, obtivemos aproximadamente 87,3 megabits por segundo em A e 17,7 em B. Com 32 clientes, a média individual caiu para cerca de 3 e 0,61 megabit por segundo. O perfil B teve menor vazão individual nas 12 comparações equivalentes de GET e PUT. A redução por cliente é coerente com o compartilhamento dos recursos disponíveis. Contudo, esses valores não são a vazão agregada da rodada; a queda individual, sozinha, não demonstra uma queda da capacidade total do serviço.
+> A vazão útil individual representa a taxa de cada transferência completa. No GET de dez mebibytes com um cliente, obtivemos aproximadamente 87,3 megabits por segundo em A e 17,7 em B. Com 32 clientes, a média individual caiu para cerca de 3 megabits em A e 0,61 em B. Nas doze comparações equivalentes de GET e PUT, B apresentou menor vazão individual. A queda por cliente é compatível com o compartilhamento dos recursos. Isso descreve a experiência de cada usuário; a taxa total do serviço exige uma medição diferente, que considere todos os bytes concluídos dentro de uma mesma janela de tempo. Por exemplo, a taxa de um cliente não pode ser multiplicada simplesmente por 32: clientes podem iniciar e terminar em instantes diferentes, e as durações individuais não compartilham necessariamente o mesmo denominador. A vazão agregada precisa usar os bytes efetivamente concluídos e o intervalo entre a liberação conjunta e o último término.
 
 ## Slide 8 — GET, PUT e HEAD
 
-**Adicionar ao slide:** três cartões: GET transfere servidor→cliente; PUT transfere cliente→servidor; HEAD recebe metadados. Exemplo com concorrência 1:
+**Adicionar ao slide:** cartões de sentido “GET: servidor→cliente”, “PUT: cliente→servidor” e “HEAD: sem conteúdo”. Tabela para um cliente:
 
-| Operação e tamanho | Tempo A | Tempo B |
+| Operação e tamanho de referência | Tempo A (ms) | Tempo B (ms) |
 | --- | --- | --- |
-| GET, 10 MiB | 960,8 ms | 4.729,8 ms |
-| PUT, 10 MiB | 1.171,9 ms | 4.814,3 ms |
-| HEAD, referência 2 MiB | 22,1 ms | 83,2 ms |
+| GET, 10 MiB | 960,8 | 4.729,8 |
+| PUT, 10 MiB | 1.171,9 | 4.814,3 |
+| HEAD, referência de 2 MiB | 22,1 | 83,2 |
 
-**Fala sugerida — Integrante 1:**
+Nota curta: “PUT da campanha: criação de arquivos; HEAD: vazão de conteúdo não aplicável”.
 
-> GET e PUT transferem conteúdo em sentidos opostos e também envolvem custos diferentes de leitura, escrita e confirmação. Com um cliente e arquivo de 10 mebibytes, o PUT levou cerca de 1,17 segundo em A e 4,81 segundos em B. Já o HEAD sobre o arquivo de referência de 2 mebibytes levou aproximadamente 22 e 83 milissegundos. Como HEAD não envia o corpo, seu tamanho de referência não representa bytes transferidos. Por isso, analisamos sua latência e mantemos sua vazão de conteúdo como não aplicável. Esses tempos também não devem ser interpretados como medições de RTT por ping.
+**Fala — Integrante 1:**
 
-## Slide 9 — O que podemos concluir e quais são os limites
+> GET e PUT movimentam conteúdo em sentidos opostos e têm custos diferentes. Com um cliente e dez mebibytes, o PUT levou cerca de 1,17 segundo em A e 4,81 em B. Nesta campanha, os PUTs retornaram status 201, correspondente à criação de arquivos. O HEAD sobre a referência de dois mebibytes levou cerca de 22 e 83 milissegundos. Como não transfere o corpo, sua vazão de conteúdo não se aplica. As diferenças de GET e PUT podem envolver conexão, leitura, escrita e confirmação; os tempos sozinhos não isolam qual desses custos explica cada diferença.
 
-**Adicionar ao slide:** duas colunas, “Evidências disponíveis” e “Pendências”. Na primeira: cobertura completa, separação dos fatores, hashes GET compatíveis, IC entre rodadas. Na segunda: hash do destino PUT; logs de calibração por sentido; janela comum da rodada. Uma frase destacada: “Compartilhamento observado; ponto de saturação não determinado”.
+## Slide 9 — Rede, aplicação e concorrência
 
-**Fala sugerida — Integrante 2:**
+**Adicionar ao slide:** comparação de GET de 10 MiB com um cliente e iperf no mesmo sentido servidor→cliente:
 
-> A análise identificou limitações relevantes. Primeiro, os hashes de GET permitem comparar entrada e saída, enquanto os registros de PUT preservam apenas o hash da entrada. Portanto, não declaramos integridade comprovada do destino para toda a campanha. Segundo, os arquivos disponíveis de calibração descrevem a topologia, mas não preservam os logs de ping, traceroute e iperf necessários para verificar os dois sentidos. Terceiro, falta uma janela comum medida da rodada. A análise anterior somava vazões individuais, o que não equivale a dividir bytes totais pela duração conjunta. O notebook deixa a vazão agregada indisponível. Podemos descrever aumento de tempo e queda da taxa individual, mas não estabelecer com rigor o ponto de saturação nem atribuí-lo exclusivamente ao enlace. Uma nova coleta deve preservar essas evidências e acompanhar recursos do host.
+| Perfil | iperf recebido (Mbit/s) | GET individual (Mbit/s) |
+| --- | --- | --- |
+| A | 94,4 | 87,322 |
+| B | 19,0 | 17,744 |
+
+Usar barras agrupadas com eixo começando em zero ou manter a tabela. Rodapé: “Ensaios distintos; iperf ≈20 s; GET inclui a operação completa”. Ao lado, desenho de clientes compartilhando o enlace, com a frase “Taxa individual ≠ taxa agregada”. Não inserir curva de saturação com pontos inventados.
+
+**Fala — Integrante 2:**
+
+> No sentido servidor para cliente, o iperf recebeu 94,4 megabits por segundo em A e 19 em B. O GET com um cliente e dez mebibytes ficou abaixo dessas referências, com 87,3 e 17,7. É uma comparação de contexto: o iperf mantém um fluxo por cerca de vinte segundos, enquanto o GET mede uma operação finita, incluindo conexão e processamento. Não atribuímos toda a diferença a um único custo. Com mais clientes, o aumento do tempo e a queda da taxa individual são compatíveis com disputa pelos recursos. Para localizar o ponto de saturação do serviço, precisamos medir o total concluído em uma janela comum. Somar taxas individuais ou usar a taxa do iperf não substitui essa medição da aplicação. O iperf funciona aqui como referência do caminho TCP e do limite aproximado da rede em um fluxo longo; ele não reproduz a abertura de uma conexão por arquivo, a leitura e gravação do conteúdo, nem a confirmação do protocolo da aplicação. A proximidade entre GET e iperf em um cliente mostra que a transferência individual utiliza boa parte da taxa observada no sentido servidor para cliente. Com 32 clientes, entretanto, o tempo individual cresce muito; sem a janela conjunta não afirmamos quanto o conjunto transferiu por segundo.
 
 ## Slide 10 — Contribuições individuais
 
-**Adicionar ao slide:** nomes e responsabilidades em duas colunas. Usar esta divisão somente se representar a participação real:
+**Adicionar ao slide:** nomes reais e responsabilidades confirmadas, distribuídas em duas colunas:
 
-| Responsabilidade | Integrante 1 — foco em aplicação | Integrante 2 — foco experimental |
+| Frente | [Nome 1] — aplicação | [Nome 2] — experimento e análise |
 | --- | --- | --- |
-| Implementação principal | Protocolo, servidor concorrente e tratamento de arquivos | Cliente, telemetria e automação de coleta |
-| Verificação | Casos de GET/PUT, erros, interrupções e sobrescrita | Matriz, consistência dos registros e evidências da topologia |
-| Análise e comunicação | Revisão das métricas e interpretação do comportamento da aplicação | Notebook, estatística por rodada, gráficos e organização dos resultados |
-| Atividade conjunta | Integração, revisão cruzada e gravação | Integração, revisão cruzada e gravação |
+| Implementação | Protocolo, servidor e arquivos | Cliente, telemetria e coleta |
+| Verificação | Operações, respostas de erro e concorrência | CORE, calibração, matriz e consistência das métricas |
+| Resultados | Relação entre implementação e comportamento | Processamento em Python, estatística e gráficos |
+| Atividades conjuntas | Integração, revisão cruzada e apresentação | Integração, revisão cruzada e apresentação |
 
-**Fala sugerida — Integrante 1, adaptar à realidade:**
+**Fala — Integrante 1:**
 
-> Minha contribuição se concentrou no protocolo e no servidor, incluindo o atendimento concorrente e o tratamento dos arquivos. Também participei da integração com o cliente e da revisão do comportamento de GET, PUT e dos erros. Na discussão dos resultados, revisei como as decisões de implementação poderiam influenciar os tempos observados.
+> Minha contribuição se concentrou no protocolo e no servidor, incluindo o atendimento concorrente e o tratamento dos arquivos. Também participei da integração com o cliente e da verificação das operações e respostas de erro. Na discussão dos resultados, ajudei a relacionar as decisões de implementação ao comportamento observado.
 
-**Fala sugerida — Integrante 2, adaptar à realidade:**
+**Fala — Integrante 2:**
 
-> Minha contribuição se concentrou no cliente e na telemetria, na organização da matriz e na automação da coleta. Também organizei a análise em Python, os gráficos e as verificações de consistência. Trabalhamos juntos na integração e na interpretação dos resultados, e identificamos as evidências que ainda precisam ser melhoradas.
-
-**Ajuste obrigatório:** se a mesma pessoa fez cliente e servidor, ou se o notebook foi produzido com assistência de ferramenta, redistribuir a descrição com honestidade, conforme a política da disciplina. Não dizer que todos os testes ou a calibração foram concluídos apenas por constarem como responsabilidades propostas.
+> Minha contribuição se concentrou no cliente, na telemetria e na organização dos experimentos no CORE. Trabalhei na calibração, na matriz de cenários e no processamento em Python, incluindo estatística e gráficos. Fizemos juntos a integração, a revisão dos resultados e a preparação da apresentação, compartilhando o entendimento das duas frentes.
 
 ## Slide 11 — Autoavaliação e conclusão
 
 **Adicionar ao slide:** três blocos curtos:
 
-- **Avanços:** aplicação C, campanha com cobertura da matriz, análise por rodada e reconhecimento das limitações.
-- **A melhorar:** evidência de calibração, hash remoto de PUT e janela comum para goodput agregado.
-- **Aprendizado:** distinguir implementação funcional, resultado registrado e conclusão experimental sustentada.
+- **Avanços:** aplicação C concorrente; rede medida nos dois sentidos; 36 configurações analisadas.
+- **Aprendizados:** rodada como unidade estatística; RTT e tempo da operação são diferentes; taxa individual e agregada também.
+- **Evolução:** janela comum, integridade PUT, calibração repetida e monitoração de recursos.
 
-Rodapé: caminhos do notebook e das fontes; link do repositório se desejado. Evitar uma nota numérica sem rubrica do professor.
+Destacar “B: maior tempo em 18/18 comparações; menor taxa individual em 12/12 GET/PUT”. Rodapé com nomes e endereço do projeto, sem exibir páginas de referência.
 
-**Fala sugerida — Integrante 1:**
+**Fala — Integrante 1:**
 
-> Nossa autoavaliação é positiva quanto à integração entre a aplicação em C e a análise dos dados. Conseguimos organizar uma campanha com as combinações previstas e observar de forma consistente que o perfil B apresentou maiores tempos e menores vazões individuais. Também entendemos melhor o efeito do tamanho e da concorrência sobre o serviço. Consideramos um avanço importante analisar as rodadas corretamente e revisar as métricas anteriores quando encontramos uma interpretação inadequada.
+> Nossa autoavaliação é positiva pela integração entre programação de rede e experimentação. Implementamos a aplicação em C, exploramos atendimento concorrente e analisamos uma matriz com diferentes cargas. As medições de rede nos dois sentidos tornaram a interpretação mais concreta: além dos parâmetros configurados, conseguimos observar taxa recebida, RTT e percurso. A divisão do trabalho ajudou a avançar na implementação e nos experimentos, enquanto a revisão conjunta ampliou o entendimento do sistema pelos dois integrantes. Um aprendizado importante foi distinguir sucesso informado pela operação de uma verificação completa do conteúdo recebido.
 
-**Fala sugerida — Integrante 2:**
+**Fala — Integrante 2:**
 
-> Ao mesmo tempo, avaliamos que a documentação experimental precisa melhorar. Faltam evidências de calibração por sentido, a verificação do destino de PUT e uma janela comum para calcular a vazão agregada. Por isso, não consideramos demonstrados todos os pontos da avaliação, especialmente a saturação do enlace. Nossa prioridade seria corrigir a coleta e repetir as medições necessárias, preservando os dados existentes. O principal aprendizado foi que desenvolver o sistema e medir seu desempenho são etapas complementares: a conclusão precisa respeitar a evidência disponível.
-
-**Frase final — Integrante 2:**
-
-> O trabalho mostrou o impacto da rede e da concorrência no desempenho individual das transferências e deixou um caminho claro para melhorar a validação experimental. Obrigado.
-
-## Preparação da gravação
-
-1. Ensaiar com cronômetro; alvo de 9min40s, incluindo troca de apresentador e clipe. Se exceder, reduzir detalhes de arquitetura antes de cortar contribuições ou limitações.
-2. Usar os gráficos incorporados ao notebook atual; não os gráficos antigos em `analysis/figures/` sem revisão. Em cada slide de resultados, mostrar apenas os painéis necessários, com unidades, fatores, n e significado das barras legíveis.
-3. Os números das tabelas são arredondamentos dos resultados da campanha ativa `experiments/raw`; os dois perfis são comparados mantendo método, tamanho e concorrência iguais. Não misturar backups para aumentar n.
-4. Diferenciar a demonstração gravada, os registros da campanha e os parâmetros configurados. Não anunciar que a calibração está aprovada ou que o sistema tem zero falhas em qualquer situação.
-5. Identificar corretamente as contribuições. A autoavaliação sugerida reconhece avanços e pendências; não afirma aprovação integral dos requisitos acadêmicos.
-6. Conferir a duração final e o acesso ao link do vídeo. Conforme o enunciado, a entrega inclui código(s) do servidor e link do vídeo de até 10 minutos.
+> O perfil B teve maior tempo nas dezoito comparações equivalentes e menor taxa individual nas doze comparações de GET e PUT. A concorrência aumentou o tempo de conclusão e reduziu a parcela de cada cliente. Como melhoria, priorizaríamos a janela comum para medir a taxa agregada, a conferência de integridade do PUT no servidor, mais ensaios independentes de calibração e o acompanhamento de CPU e disco. Também separaríamos banda e atraso em novos cenários para entender seus efeitos individuais. O trabalho consolidou nossa compreensão de como implementação, rede e carga influenciam a experiência de transferência. Obrigado.

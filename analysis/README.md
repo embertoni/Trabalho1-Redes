@@ -19,12 +19,14 @@ A entrada padrão é somente `experiments/raw/json/S*.json`, com os hashes de `e
 
 O processamento segue a seção 9 do [guia revisado](../docs/GUIA_COMPLETO_TRABALHO1_REDES.md): rodada como unidade do IC95% de Student, média, mediana, desvio amostral, cobertura/falhas e separação dos fatores. HEAD tem somente latência, sem vazão de conteúdo. O manifesto SHA-256 identifica os JSONs usados; as versões das bibliotecas aparecem nas saídas.
 
-Limites encontrados: o coletor atual não preserva janela comum da rodada, portanto goodput agregado e saturação não são estimados. Os registros de PUT guardam apenas o hash da entrada, sem conferir destino. A pasta de calibração contém descrições com campos de validação vazios, sem logs ping/traceroute/iperf por sentido. São pendências de evidência, não motivos para fabricar medidas.
+Limites encontrados: o coletor atual não preserva janela comum da rodada, portanto goodput agregado e saturação não são estimados. Os registros de PUT guardam apenas o hash da entrada, sem conferir destino. A pasta `comandos/`, adicionada posteriormente, agora fornece ping/traceroute/iperf nos dois sentidos para A/B; veja a [comparação das medições CORE](reports/comparacao_medicoes_core.md). Há um ensaio iperf de cerca de 20 s e dez pings por perfil/sentido, sem vínculo temporal explícito a cada rodada. O notebook ainda não incorpora essa calibração; suas observações sobre ausência de logs são anteriores à nova pasta.
 
 `scripts/analyze_results.py`, `analysis/data/`, `analysis/tables/` e os relatórios anteriores foram preservados. Seu campo `throughput_aggregate_mbps` soma taxas individuais e não representa bytes por janela comum; o notebook não o usa como goodput agregado. Seus ICs com fator 1,96 também não substituem os ICs de Student recalculados entre rodadas no notebook.
 
 
 ## Materiais para os slides
+
+**Revisão com medições CORE:** o [roteiro atual](reports/roteiro_video.md) inclui calibração real no slide 4, matriz/demonstração no 5 e nova comparação no 9. O [visual novo](reports/comparacao_core/calibracao_core.png) é gerado por `analysis/comparar_medicoes_core.py`. Os blocos de geração do notebook e o PDF anterior ainda não foram alinhados a essa sequência; siga as orientações iniciais do roteiro na montagem.
 
 A seção final de [analise_resultados.ipynb](analise_resultados.ipynb) contém blocos explícitos para cada um dos 11 slides do [roteiro](reports/roteiro_video.md). Execute o notebook em ordem. Essa seção usa `GERAR_ARQUIVOS_SLIDES=True` por padrão, independentemente de `EXPORTAR`, e grava os materiais em [slides/README.md](slides/README.md).
 

@@ -13,13 +13,13 @@ Este plano organiza trabalho para pessoas e agentes de IA. A preparação do rep
 | T04 | A fazer | T02 | `src/server.c` | Atendimento concorrente, GET/PUT e HEAD proposto; integridade, temporários e erros validados |
 | T05 | A fazer | T02 | `src/client.c` | CLI e JSON compatíveis com contrato; operação completa cronometrada; falhas e sobrescrita validadas |
 | T06 | A fazer | T03, T04, T05 | Integração funcional em localhost | Casos da seção 4.5 do guia aprovados, incluindo interrupções, sobrescrita e concorrência |
-| T07 | A fazer | Nenhuma | `topology/` e ambiente Linux | Sessão CORE reproduzível com endereços, rotas, acessos e núcleo; A/B calibrados em ambos os sentidos |
+| T07 | Parcial: XMLs e medições A/B; rastreabilidade e runtime pendentes | Nenhuma | `topology/` e ambiente Linux | Sessão CORE reproduzível com endereços, rotas, acessos e núcleo; A/B calibrados em ambos os sentidos |
 | T08 | A fazer | T01, T06 | `scripts/` e formatos de CSV | Coleta adaptada a `build/client`; barreira, logs, hashes, timeouts e requisições/rodadas verificados com testes do coletor |
-| T09 | Parcial: notebook executado; fixtures pendentes | T01 | `analysis/` | Processamento e gráficos isolam fatores, preservam falhas e usam rodada como unidade de IC; validados com fixtures identificadas |
+| T09 | Parcial: notebook e fixtures; integrar testes de análise | T01 | `analysis/` | Processamento e gráficos isolam fatores, preservam falhas e usam rodada como unidade de IC; validados com fixtures identificadas |
 | T10 | A fazer | T06, T07, T08 | Piloto e `configs/` | Tempos/recursos estimados, metodologia estabilizada e matriz congelada com justificativas |
 | T11 | A fazer | T09, T10 | Campanha em `experiments/` | Todas as células executadas com repetições, integridade e evidências; falhas e novas tentativas preservadas |
 | T12 | A fazer | T11 | Resultados e discussão | Estatísticas, gráficos, limites, gargalos e saturação sustentados pelos dados |
-| T13 | Parcial: roteiro e materiais de slides gerados; vídeo pendente | T12 | Documentação e entrega | README reproduzível, código revisado, vídeo até 10 min, contribuições/autoavaliação e checklist completo |
+| T13 | Parcial: roteiro com calibração real; alinhar materiais e gravar vídeo | T12 | Documentação e entrega | README reproduzível, código revisado, vídeo até 10 min, contribuições/autoavaliação e checklist completo |
 
 T03 pode começar com os contratos e crescer junto dos módulos; seus casos de integração só serão executáveis após T04/T05. T07 pode ser investigada independentemente dos fontes. T09 pode usar fixtures sintéticas explicitamente identificadas antes da campanha. A disponibilidade dessas frentes não é uma ordem para criar agentes paralelos.
 

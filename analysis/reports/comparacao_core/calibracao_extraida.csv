@@ -1,0 +1,5 @@
+origin,profile,direction,nominal_mbps,ping_sent,ping_received,ping_loss_pct,rtt_min_ms,rtt_avg_ms,rtt_max_ms,rtt_mdev_ms,iperf_receiver_mbps,iperf_receiver_window_s,iperf_sender_mbps,iperf_sender_window_s,retransmissions,independent_iperf_runs,ping_source,iperf_source
+MEDICAO_FORNECIDA_CORE,A,cliente_servidor,100,10,10,0.0,10.415,10.555,10.847,0.14,93.9,20.05,94.4,20.0,48,1,comandos/comandosip/comandosip/ping_client.txt,comandos/comandosip/comandosip/iperf_client.txt
+MEDICAO_FORNECIDA_CORE,A,servidor_cliente,100,10,10,0.0,10.442,10.655,10.995,0.214,94.4,20.0,94.6,20.04,62,1,comandos/comandosip/comandosip/ping_server.txt,comandos/comandosip/comandosip/iperfR_server.txt
+MEDICAO_FORNECIDA_CORE,B,cliente_servidor,20,10,10,0.0,40.388,40.588,40.939,0.164,18.9,20.09,19.2,20.0,11,1,comandos/comandosipB/comandosipB/ping_client.txt,comandos/comandosipB/comandosipB/iperf_client.txt
+MEDICAO_FORNECIDA_CORE,B,servidor_cliente,20,10,10,0.0,40.388,40.545,40.699,0.09,19.0,20.01,19.2,20.05,12,1,comandos/comandosipB/comandosipB/ping_server.txt,comandos/comandosipB/comandosipB/iperfR_server.txt

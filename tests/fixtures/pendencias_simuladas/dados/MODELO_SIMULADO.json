@@ -1,0 +1,29 @@
+{
+  "origin": "SIMULADO_NAO_EXPERIMENTAL",
+  "seed": 20261105,
+  "core_runtime_validated": false,
+  "real_requirements_closed": false,
+  "fitted_to_real_data": false,
+  "clock": "virtual seconds, no UTC measurement",
+  "profiles": {
+    "A": [
+      100.0,
+      5.0
+    ],
+    "B": [
+      20.0,
+      20.0
+    ]
+  },
+  "model": "B*.94*{1:.75,8:.94,32:.95}[C]*U(.98,1); duration=2RTT+C*bits/rate+persistence",
+  "head": "no payload; no content throughput",
+  "hashes": "computed on virtual repeated bytes(range(256))",
+  "trace": "plausible IP route model, not observed packet route",
+  "put": "all successful PUTs modeled as overwrite; real collector uses per-attempt names",
+  "resources": "illustrative whole-host values; no performance causal inference",
+  "dependencies": {
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2"
+  }
+}

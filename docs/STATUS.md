@@ -2,6 +2,31 @@
 
 Atualizado em 05/11/2026.
 
+## Medições reais dos terminais CORE e revisão do roteiro — 05/11/2026
+
+- Lidos os 12 arquivos novos de `comandos/`: ping, traceroute e iperf nos dois sentidos para A/B. Taxas de receptor A=93,9/94,4 Mbit/s e B=18,9/19,0 Mbit/s; RTTs médios A=10,555/10,655 ms e B=40,588/40,545 ms. São quatro ensaios iperf de cerca de 20 s e 40 pings respondidos; há retransmissões TCP (48/62/11/12). Calibração deixou de ser inteiramente hipotética; faltam vínculo temporal de campanha, tc e repetições independentes para inferência de estabilidade.
+- Criados `analysis/comparar_medicoes_core.py`, `analysis/reports/comparacao_medicoes_core.md` e `analysis/reports/comparacao_core/` (seis CSVs e PNG/SVG). Comparadas calibração e métricas da aplicação com as fixtures, sem ajustar o modelo sintético ou misturar origens. As médias da aplicação foram reconferidas nos 5.412 JSONs ativos.
+- Reescrito `analysis/reports/roteiro_video.md`: 11 slides, 9min40s, calibração real no slide 4, matriz/demonstração no 5 e comparação iperf/GET no 9. Slides e falas sem menções a documentos; referências e limites documentais apenas na abertura técnica. Contribuições de dois integrantes permanecem proposta a confirmar. Atualizados README da análise, nota na revisão Manus e estados parciais T07/T13.
+- Ambiente: `all` no WSL retornou 1 (CORE e bibliotecas no Python de sistema ausentes); perfil `analysis` no venv retornou 0. A leitura de medições fornecidas não valida sessão ativa nesta máquina; `core_runtime_validated=false`. Nenhuma instalação nem tráfego novo.
+- Validação: execução do comparador retornou 0; conferidos resumos receiver/sender, modo reverso, rotas, diferenças real/sintético e médias por rodada. SHA-256 dos 12 originais preservados; 11 intervalos contíguos somam 580 s; links e ausência de menções documentais no corpo conferidos. Gráfico 2560×1440 inspecionado visualmente. Sem alteração de fontes C, matriz, XMLs, campanha ou simulações; sem commit/push.
+- Próximo passo: montar e ensaiar a apresentação atualizada. PDF e blocos antigos do notebook não foram regenerados; orientações de substituição estão na abertura do roteiro. Janela comum, hash de destino PUT, sobrescrita na campanha e recursos continuam pendentes; taxa iperf não comprova saturação agregada da aplicação.
+
+## Revisão do histórico Manus e dados sintéticos — 05/11/2026
+
+- Analisados os seis arquivos de `conversa_trabalho1_redes/` e comparados com fontes, contratos, XMLs, matriz, coleta, dados e análise. Criado [relatório detalhado](REVISAO_HISTORICO_MANUS.md) com 15 etapas, classificação das evidências e sequência para registrar as medições restantes.
+- Criada [pasta de fixtures](../tests/fixtures/pendencias_simuladas/README.md) com gerador reproduzível, verificador e 13 arquivos de saída: 5.412 requisições sintéticas, 396 rodadas, 36 células, 3.608 hashes virtuais, calibração ideal nos dois sentidos, recursos ilustrativos, seis casos negativos e dois gráficos identificados. Os valores não foram ajustados aos resultados reais e não encerram requisitos experimentais.
+- Achados: 1.804 PUTs reais retornam 201, sem comprovação de sobrescrita na campanha; falta hash do destino PUT e janela comum; calibração tem campos vazios; analisador legado soma taxas e não exige todos os workers; HEAD e erros de PUT têm divergências de contrato a testar. Perfis A/B alteram banda e atraso juntos, limitando inferência causal separada.
+- Ambiente: inventário `all` no WSL retornou 1 (CORE e bibliotecas no Python de sistema ausentes); `.venv-analysis/bin/python scripts/check_environment.py --profile analysis --json build/environment-analysis.json` retornou 0. Nenhuma instalação; `core_runtime_validated=false`.
+- Validação: `.venv-analysis/bin/python tests/fixtures/pendencias_simuladas/gerar.py` e `verificar.py` retornaram 0; conferidas cobertura, identificadores, relógio virtual, bytes/janela, IC Student entre rodadas, HEAD sem vazão, hashes do manifesto e casos negativos. Dois PNGs inspecionados visualmente. Isso valida a consistência das fixtures, não o aplicativo C ou o pipeline real de análise.
+- Decisões/escopo: nenhum contrato, dado experimental, fonte C, XML, notebook ou roteiro alterado nesta tarefa. Alterações locais anteriores preservadas. Sem commit/push. T09 continua parcial: fixtures agora disponíveis, integração ao processamento de produção pendente. Próximos passos reais estão no relatório; T07/T10/T11/T12 e entrega não foram declarados concluídos.
+
+## Revisão integral do roteiro — 05/11/2026
+
+- Reescrito `analysis/reports/roteiro_video.md`: limitações dos registros e papel da documentação de desenvolvimento concentrados na abertura, fora dos slides e da narração. Incluídos passos para coleta correta, calibração por sentido, relógios, janela comum, hashes de destino e preservação de falhas.
+- Mantidos os números medidos, 11 slides e 9min40s. Slide 9 substituído por explicação conceitual de compartilhamento/saturação esperada; hipóteses ideais temporárias identificadas na abertura, sem fabricar valores ou validações. Contribuições e autoavaliação continuam propostas a ajustar à participação real.
+- Validação: sequência de 11 slides e intervalos contínuos totalizando 580 segundos; corpo sem referências à documentação/guia; tempos numéricos conferidos contra JSONs da campanha; link local conferido; UTF-8/LF e `git diff --check`. Inventário all no WSL retornou 1 por ausência de CORE e bibliotecas no Python de sistema; revisão textual independente, sem executar campanha.
+- Escopo: notebook, PNGs/SVGs e PDF existentes não foram regenerados. A abertura avisa que esses materiais ainda pertencem à versão anterior e orienta quais visuais adaptar. T13 permanece parcial; próximo passo é alinhar a montagem visual ao roteiro revisado, ensaiar e gravar. Nenhuma alteração do protocolo ou dado experimental.
+
 ## Materiais dos slides no notebook — 05/11/2026
 
 - Acrescentadas 26 células ao fim de `analysis/analise_resultados.ipynb`, preservando o conteúdo das 17 anteriores. Total: 43 células, 25 Python. Cada slide do roteiro tem bloco identificado, geração de conteúdo e instruções. Atualizados `analysis/README.md` e T13 no plano, mantida parcial: gravação e montagem final pendentes.
